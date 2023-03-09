@@ -1,0 +1,22 @@
+spring:
+  redis:
+    host: 127.0.0.1
+    database: 0
+    port: 6379
+    password:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/webrobot?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
+  servlet:
+    multipart:
+      max-request-size: 200MB
+      max-file-size: 200MB
+server:
+  tomcat:
+    max-http-form-post-size: -1
+      #mybatis:
+      #  mapper-locations: classpath:ModelMapper/*.xml
+      #  type-aliases-package: com.meng.robot_dt.entity
+      #设置上传文件最大尺寸

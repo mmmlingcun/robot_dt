@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.meng.robot_dt.mapper.SceneMapper">
+    <insert id="addScene" parameterType="com.meng.robot_dt.entity.Scene" useGeneratedKeys="true" keyProperty="idD">
+        insert into scene_inf(scene_id,scene_name,cover_img,upload_user,file_format,file_size,file_path) values (IFNULL((SELECT c.* FROM (SELECT scene_id+1 FROM scene_inf WHERE idD=(SELECT MAX(idD) FROM scene_inf)) c),1),#{scene_name},#{cover_img},#{upload_user},#{file_format},#{file_size},#{file_path})
+    </insert>
+    <delete id="deleteSceneBySceneId" parameterType="String">
+        delete from scene_inf where scene_id=#{scene_id}
+    </delete>
+    <update id="updateScene" parameterType="com.meng.robot_dt.entity.Scene">
+        update scene_inf set scene_name=#{scene_name},cover_img=#{cover_img},upload_user=#{upload_user},upload_time=#{upload_time},file_path=#{file_path},download_times=#{download_times} where scene_id = #{scene_id}
+    </update>
+    <select id="getSceneById" parameterType="String" resultType="com.meng.robot_dt.entity.Scene">
+        select * from scene_inf where scene_id = #{scene_id}
+    </select>
+    <select id="getAllScenes" parameterType="String" resultType="com.meng.robot_dt.entity.Scene">
+        select * from scene_inf
+    </select>
+</mapper>

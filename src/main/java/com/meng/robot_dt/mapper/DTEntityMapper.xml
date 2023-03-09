@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.meng.robot_dt.mapper.DTEntityMapper">
+    <insert id="addDTType" parameterType="com.meng.robot_dt.entity.DTEntity">
+        insert into eav_entity_type(entity_type_id,entity_type_name) values (#{entity_type_id},#{entity_type_name})
+    </insert>
+    <delete id="deleteDTTypeById" parameterType="Integer">
+        delete from eav_entity_type where entity_type_id=#{entity_type_id}
+    </delete>
+    <update id="updateDTType" parameterType="com.meng.robot_dt.entity.DTEntity">
+        update eav_entity_type set entity_type_name=#{entity_type_name} where entity_type_id = #{entity_type_id}
+    </update>
+    <select id="getDTTypeById" parameterType="Integer" resultType="com.meng.robot_dt.entity.DTEntity">
+        select * from eav_entity_type where entity_type_id = #{entity_type_id}
+    </select>
+    <select id="getAllDTTypes" resultType="com.meng.robot_dt.entity.DTEntity">
+        select * from eav_entity_type
+    </select>
+
+    <insert id="addDTEntity" parameterType="com.meng.robot_dt.entity.DTEntity">
+        insert into eav_entity(entity_id,entity_name,entity_type_id) values (#{entity_id},#{entity_name},#{entity_type_id})
+    </insert>
+    <delete id="deleteDTEntityById" parameterType="Integer">
+        delete from eav_entity where entity_id=#{entity_id}
+    </delete>
+    <update id="updateDTEntity" parameterType="com.meng.robot_dt.entity.DTEntity">
+        update eav_entity set entity_name=#{entity_name}, entity_type_id=#{entity_type_id} where entity_id = #{entity_id}
+    </update>
+    <select id="getDTEntityById" parameterType="Integer" resultType="com.meng.robot_dt.entity.DTEntity">
+        select * from eav_entity where entity_id = #{entity_id}
+    </select>
+    <select id="getDTEntityByTypeId" parameterType="Integer" resultType="com.meng.robot_dt.entity.DTEntity">
+        select * from eav_entity where entity_type_id = #{entity_type_id}
+    </select>
+    <select id="getAllDTEntitys" resultType="com.meng.robot_dt.entity.DTEntity">
+        select * from eav_entity
+    </select>
+    <select id="getValueTypeById" parameterType="Integer" resultType="com.meng.robot_dt.entity.DTEntity">
+        select * from eav_value_type where value_type_id = #{value_type_id}
+    </select>
+    <select id="getAllValueTypes" resultType="com.meng.robot_dt.entity.DTEntity">
+        select * from eav_value_type
+    </select>
+
+    <insert id="addAttribute" parameterType="com.meng.robot_dt.entity.DTEntity">
+        insert into eav_attribute(attribute_id,attribute_name,entity_type_id,value_type_id,attribute_note) values (#{attribute_id},#{attribute_name},#{entity_type_id},#{value_type_id},#{attribute_note})
+    </insert>
+    <delete id="deleteAttributeById" parameterType="Integer">
+        delete from eav_attribute where attribute_id=#{attribute_id}
+    </delete>
+    <update id="updateAttribute" parameterType="com.meng.robot_dt.entity.DTEntity">
+        update eav_attribute set attribute_name=#{attribute_name},entity_type_id=#{entity_type_id}, value_type_id=#{value_type_id}, attribute_note=#{attribute_note} where attribute_id = #{attribute_id}
+    </update>
+    <select id="getAttributeById" parameterType="Integer" resultType="com.meng.robot_dt.entity.DTEntity">
+        select * from eav_attribute where attribute_id=#{attribute_id}
+    </select>
+    <select id="getAttributeByTypeId" parameterType="Integer" resultType="com.meng.robot_dt.entity.DTEntity">
+        select * from eav_attribute where entity_type_id=#{entity_type_id}
+    </select>
+    <select id="getAllAttributes" resultType="com.meng.robot_dt.entity.DTEntity">
+        select * from eav_attribute
+    </select>
+
+    <insert id="addValue" parameterType="com.meng.robot_dt.entity.DTEntity">
+        INSERT
+        <if test="value_type_id==0">
+            eav_value_int
+        </if>
+        <if test="value_type_id==1">
+            eav_value_decimal
+        </if>
+        <if test="value_type_id==2">
+            eav_value_datetime
+        </if>
+        <if test="value_type_id==3">
+            eav_value_varchar
+        </if>
+        VALUES (#{value_id},#{entity_id},#{attribute_id},#{value})
+    </insert>
+    <delete id="deleteValueById" parameterType="com.meng.robot_dt.entity.DTEntity">
+        delete from
+        <if test="value_type_id==0">
+            eav_value_int
+        </if>
+        <if test="value_type_id==1">
+            eav_value_decimal
+        </if>
+        <if test="value_type_id==2">
+            eav_value_datetime
+        </if>
+        <if test="value_type_id==3">
+            eav_value_varchar
+        </if>
+        where value_id=#{value_id}
+    </delete>
+    <update id="updateValue" parameterType="com.meng.robot_dt.entity.DTEntity">
+        update
+        <if test="value_type_id==0">
+            eav_value_int
+        </if>
+        <if test="value_type_id==1">
+            eav_value_decimal
+        </if>
+        <if test="value_type_id==2">
+            eav_value_datetime
+        </if>
+        <if test="value_type_id==3">
+            eav_value_varchar
+        </if>
+        set value=#{value} where value_id = #{value_id} and entity_id = #{entity_id} and attribute_id = #{attribute_id}
+    </update>
+    <select id="getValueById" parameterType="com.meng.robot_dt.entity.DTEntity" resultType="com.meng.robot_dt.entity.DTEntity">
+        select * from
+        <if test="value_type_id==0">
+            eav_value_int
+        </if>
+        <if test="value_type_id==1">
+            eav_value_decimal
+        </if>
+        <if test="value_type_id==2">
+            eav_value_datetime
+        </if>
+        <if test="value_type_id==3">
+            eav_value_varchar
+        </if>
+        where value_id = #{value_id} and entity_id = #{entity_id} and attribute_id = #{attribute_id}
+    </select>
+    <select id="getAllValue" parameterType="Integer" resultType="com.meng.robot_dt.entity.DTEntity">
+        select * from
+        <if test="value_type_id==0">
+            eav_value_int
+        </if>
+        <if test="value_type_id==1">
+            eav_value_decimal
+        </if>
+        <if test="value_type_id==2">
+            eav_value_datetime
+        </if>
+        <if test="value_type_id==3">
+            eav_value_varchar
+        </if>
+    </select>
+</mapper>

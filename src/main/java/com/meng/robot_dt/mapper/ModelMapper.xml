@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.meng.robot_dt.mapper.ModelMapper">
+    <insert id="addModel" parameterType="com.meng.robot_dt.entity.Model" useGeneratedKeys="true" keyProperty="idD">
+        insert into model_inf(model_id,model_name,model_type,cover_img,upload_user,file_format,file_size,file_path) values (IFNULL((SELECT c.* FROM (SELECT model_id+1 FROM model_inf WHERE idD=(SELECT MAX(idD) FROM model_inf)) c),1),#{model_name},#{model_type},#{cover_img},#{upload_user},#{file_format},#{file_size},#{file_path})
+    </insert>
+    <delete id="deleteModelByModelId" parameterType="String">
+        delete from model_inf where model_id=#{model_id}
+    </delete>
+    <update id="updateModel" parameterType="com.meng.robot_dt.entity.Model">
+        update model_inf set model_name=#{model_name},model_type=#{model_type},cover_img=#{cover_img},upload_user=#{upload_user},upload_time=#{upload_time},file_format=#{file_format},file_size=#{file_size},file_path=#{file_path},download_times=#{download_times} where model_id = #{model_id}
+    </update>
+    <select id="getModelById" parameterType="String" resultType="com.meng.robot_dt.entity.Model">
+        select * from model_inf where model_id = #{model_id}
+    </select>
+    <select id="getAllModels" parameterType="String" resultType="com.meng.robot_dt.entity.Model">
+        select * from model_inf
+    </select>
+</mapper>
