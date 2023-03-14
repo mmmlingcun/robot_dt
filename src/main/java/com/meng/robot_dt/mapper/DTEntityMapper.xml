@@ -43,13 +43,13 @@
     </select>
 
     <insert id="addAttribute" parameterType="com.meng.robot_dt.entity.DTEntity">
-        insert into eav_attribute(attribute_id,attribute_name,entity_type_id,value_type_id,attribute_note) values (#{attribute_id},#{attribute_name},#{entity_type_id},#{value_type_id},#{attribute_note})
+        insert into eav_attribute(attribute_id,attribute_name,entity_type_id,value_type_id,is_required,example_data,attribute_note) values (#{attribute_id},#{attribute_name},#{entity_type_id},#{value_type_id},#{is_required},#{example_data},#{attribute_note})
     </insert>
     <delete id="deleteAttributeById" parameterType="Integer">
         delete from eav_attribute where attribute_id=#{attribute_id}
     </delete>
     <update id="updateAttribute" parameterType="com.meng.robot_dt.entity.DTEntity">
-        update eav_attribute set attribute_name=#{attribute_name},entity_type_id=#{entity_type_id}, value_type_id=#{value_type_id}, attribute_note=#{attribute_note} where attribute_id = #{attribute_id}
+        update eav_attribute set attribute_name=#{attribute_name},entity_type_id=#{entity_type_id}, value_type_id=#{value_type_id}, is_required=#{is_required}, example_data=#{example_data}, attribute_note=#{attribute_note} where attribute_id = #{attribute_id}
     </update>
     <select id="getAttributeById" parameterType="Integer" resultType="com.meng.robot_dt.entity.DTEntity">
         select * from eav_attribute where attribute_id=#{attribute_id}

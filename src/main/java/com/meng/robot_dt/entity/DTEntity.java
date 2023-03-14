@@ -20,6 +20,8 @@ public class DTEntity {
     private Integer attribute_id;
     private String attribute_name;
     private String attribute_note;
+    private String is_required;
+    private String example_data;
     private Integer value_type_id;
     private String value_type;
     private Integer value_id;
@@ -48,6 +50,12 @@ public class DTEntity {
         }
         if(attribute_note!=null) {
             map.put("\"attribute_note\"","\""+attribute_note+"\"");
+        }
+        if(is_required!=null) {
+            map.put("\"is_required\"","\""+is_required+"\"");
+        }
+        if(example_data!=null) {
+            map.put("\"example_data\"","\""+example_data+"\"");
         }
         if(value_type_id!=null) {
             map.put("\"value_type_id\"","\""+value_type_id+"\"");
