@@ -13,9 +13,10 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 @Component
 public class MQTTConnect {
 
-    private String HOST = "ws://127.0.0.1:8083/mqtt"; //mqtt服务器的地址和端口号
+//    private String HOST = "ws://127.0.0.1:8083/mqtt"; //mqtt服务器的地址和端口号
+    private String HOST = "ws://121.41.65.127:8083/mqtt"; //mqtt服务器的地址和端口号
     //    private final String clientId = "DC" + (int) (Math.random() * 100000000);
-    private final String clientId = "java";
+    private final String clientId = "localjava";
     private MqttClient mqttClient;
 
     /**
@@ -26,7 +27,7 @@ public class MQTTConnect {
      * @param mqttCallback 回调函数
      **/
     public void setMqttClient(String userName, String passWord, MqttCallback mqttCallback) throws MqttException {
-        userName = "javaadmin";
+        userName = "localjava";
         passWord = "mqttjavaadmin";
         MqttConnectOptions options = mqttConnectOptions(userName, passWord);
         if (mqttCallback == null) {

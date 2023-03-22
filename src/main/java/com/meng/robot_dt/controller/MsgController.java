@@ -14,9 +14,10 @@ import org.apache.tomcat.jni.Time;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+@CrossOrigin
 @RestController
 public class MsgController {
     @Autowired
@@ -49,6 +50,116 @@ public class MsgController {
                 Thread.sleep(16);
             }
             times--;
+        }
+        return "数据驱动";
+    }
+
+    // 模拟设备更新数据
+    @GetMapping("/msgset2")
+    public String msgSet2() throws InterruptedException, MqttException {
+        mqttConnect.pub("抛光线传送带","{\"抛光线传送带animation\":true}");
+        Thread.sleep(1000);
+        mqttConnect.pub("抛光线传送带","{\"抛光线传送带animation\":false}");
+        // 0 30 -30 0 0 0
+        // 0 -6 -16 0 -67 90
+        // ER20connect  抛光线夹爪0.22,0,0.1 角度0,0,0
+        //108 -20 19 0 -88 -62
+        // 抛光线设备3connect 移动底座0.51,0.31,1.13
+        // 抛光线设备3animation
+
+        for (double i = 0; i <= 60; i++) {
+            double ER20_1 = 0;
+            double ER20_2 = -i*36/60+30;
+            double ER20_3 = i*14/60-30;
+            double ER20_4 = 0;
+            double ER20_5 = -i*67/60;
+            double ER20_6 = i*90/60;
+            mqttConnect.pub("data","{" +
+                    "    \"timestamp\":1660531135," +
+                    "    \"clientId\":\"ykg3557\"," +
+                    "    \"version\":\"5.0\"," +
+                    "    \"devices\":[" +
+                    "        {" +
+                    "            \"deviceId\":\"ER20\"," +
+                    "            \"deviceState\":1," +
+                    "            \"deviceData\":{" +
+                    "                \"ER20-1\":"+ER20_1+"," +
+                    "                \"ER20-2\":"+ER20_2+"," +
+                    "                \"ER20-3\":"+ER20_3+"," +
+                    "                \"ER20-4\":"+ER20_4+"," +
+                    "                \"ER20-5\":"+ER20_5+"," +
+                    "                \"ER20-6\":"+ER20_6+"" +
+                    "            }" +
+                    "        }" +
+                    "    ]" +
+                    "}");
+            Thread.sleep(16);
+        }
+        Thread.sleep(200);
+        mqttConnect.pub("ER20","{\"ER20connect\":true}");
+        // 0 -6 -16 0 -67 90
+        //108 -20 19 0 -88 -62
+        for (float i = 0; i <= 90; i++) {
+            float ER20_1 = i*108/90;
+            float ER20_2 = -6-i*14/90;
+            float ER20_3 = -16+i*35/90;
+            float ER20_4 = 0;
+            float ER20_5 = -67-i*21/90;
+            float ER20_6 = 90-i*152/90;
+            mqttConnect.pub("data","{" +
+                    "    \"timestamp\":1660531135," +
+                    "    \"clientId\":\"ykg3557\"," +
+                    "    \"version\":\"5.0\"," +
+                    "    \"devices\":[" +
+                    "        {" +
+                    "            \"deviceId\":\"ER20\"," +
+                    "            \"deviceState\":1," +
+                    "            \"deviceData\":{" +
+                    "                \"ER20-1\":"+ER20_1+"," +
+                    "                \"ER20-2\":"+ER20_2+"," +
+                    "                \"ER20-3\":"+ER20_3+"," +
+                    "                \"ER20-4\":"+ER20_4+"," +
+                    "                \"ER20-5\":"+ER20_5+"," +
+                    "                \"ER20-6\":"+ER20_6+"" +
+                    "            }" +
+                    "        }" +
+                    "    ]" +
+                    "}");
+            Thread.sleep(16);
+        }
+        Thread.sleep(200);
+        mqttConnect.pub("抛光线设备3","{\"抛光线设备3connect\":true}");
+        Thread.sleep(100);
+        mqttConnect.pub("抛光线设备3","{\"抛光线设备3animation\":true}");
+        Thread.sleep(8000);
+        mqttConnect.pub("ER20","{\"ER20connect\":true}");
+        for (float i = 80; i >= 0; i--) {
+            float ER20_1 = i*108/80;
+            float ER20_2 = -6-i*14/80;
+            float ER20_3 = -16+i*35/80;
+            float ER20_4 = 0;
+            float ER20_5 = -67-i*21/80;
+            float ER20_6 = 90-i*152/80;
+            mqttConnect.pub("data","{" +
+                    "    \"timestamp\":1660531135," +
+                    "    \"clientId\":\"ykg3557\"," +
+                    "    \"version\":\"5.0\"," +
+                    "    \"devices\":[" +
+                    "        {" +
+                    "            \"deviceId\":\"ER20\"," +
+                    "            \"deviceState\":1," +
+                    "            \"deviceData\":{" +
+                    "                \"ER20-1\":"+ER20_1+"," +
+                    "                \"ER20-2\":"+ER20_2+"," +
+                    "                \"ER20-3\":"+ER20_3+"," +
+                    "                \"ER20-4\":"+ER20_4+"," +
+                    "                \"ER20-5\":"+ER20_5+"," +
+                    "                \"ER20-6\":"+ER20_6+"" +
+                    "            }" +
+                    "        }" +
+                    "    ]" +
+                    "}");
+            Thread.sleep(16);
         }
         return "数据驱动";
     }
