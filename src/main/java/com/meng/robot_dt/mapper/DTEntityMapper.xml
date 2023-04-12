@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.meng.robot_dt.mapper.DTEntityMapper">
     <insert id="addDTType" parameterType="com.meng.robot_dt.entity.DTEntity">
-        insert into eav_entity_type(entity_type_id,entity_type_name) values (#{entity_type_id},#{entity_type_name})
+        insert into eav_entity_type(entity_type_name) values (#{entity_type_name})
     </insert>
     <delete id="deleteDTTypeById" parameterType="Integer">
         delete from eav_entity_type where entity_type_id=#{entity_type_id}
@@ -75,7 +75,8 @@
         <if test="value_type_id==3">
             eav_value_varchar
         </if>
-        VALUES (#{value_id},#{entity_id},#{attribute_id},#{value})
+        (entity_id,attribute_id,value)
+        VALUES (#{entity_id},#{attribute_id},#{value})
     </insert>
     <delete id="deleteValueById" parameterType="com.meng.robot_dt.entity.DTEntity">
         delete from
@@ -139,5 +140,38 @@
         <if test="value_type_id==3">
             eav_value_varchar
         </if>
+    </select>
+
+    <select id="getAllAttribute" parameterType="Integer" resultType="com.meng.robot_dt.entity.DTEntity">
+        SELECT
+            eav_attribute.attribute_id,
+            eav_attribute.attribute_name,
+            eav_entity_type.entity_type_name,
+            eav_attribute.is_required,
+            eav_attribute.example_data,
+            eav_value_type.value_type_id,
+            eav_value_type.value_type,
+            eav_attribute.attribute_note
+        FROM
+            eav_attribute
+                INNER JOIN eav_entity_type ON eav_attribute.entity_type_id = eav_entity_type.entity_type_id
+                INNER JOIN eav_value_type ON eav_attribute.value_type_id = eav_value_type.value_type_id
+        WHERE
+            eav_attribute.entity_type_id = #{entity_type_id};
+    </select>
+
+    <select id="getAllDT" parameterType="Integer" resultType="com.meng.robot_dt.entity.DTEntity">
+        SELECT
+            eav_entity.entity_id,
+            eav_entity.entity_name,
+            eav_attribute.attribute_id,
+            eav_attribute.attribute_name,
+            eav_value_varchar.`value`
+        FROM
+            eav_entity
+                INNER JOIN eav_attribute ON eav_entity.entity_type_id = eav_attribute.entity_type_id
+                INNER JOIN eav_value_varchar ON ( eav_entity.entity_id = eav_value_varchar.entity_id AND eav_attribute.attribute_id = eav_value_varchar.attribute_id )
+        WHERE
+            eav_entity.entity_type_id = #{entity_type_id};
     </select>
 </mapper>

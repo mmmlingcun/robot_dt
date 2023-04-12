@@ -40,4 +40,9 @@ public class DTEntityService {
     public DTEntity getValueById(DTEntity dtEntity){return dtEntityMapper.getValueById(dtEntity);}
     public List<DTEntity> getAllValue(Integer value_type_id){return dtEntityMapper.getAllValue(value_type_id);}
 
+    public List<DTEntity> getAllAttribute(Integer entity_type_id){return dtEntityMapper.getAllAttribute(entity_type_id);}
+    public List<DTEntity> getAllDT(Integer entity_type_id){return dtEntityMapper.getAllDT(entity_type_id);}
+
+
+
 }

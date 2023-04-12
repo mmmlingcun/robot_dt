@@ -40,4 +40,10 @@ public interface DTEntityMapper {
     int updateValue(DTEntity dtEntity);
     DTEntity getValueById(DTEntity dtEntity);
     List<DTEntity> getAllValue(Integer value_type_id);
+
+    // 综合查询
+    // 孪生类属性表
+    List<DTEntity> getAllAttribute(Integer entity_type_id);
+    // 孪生体集合表
+    List<DTEntity> getAllDT(Integer entity_type_id);
 }

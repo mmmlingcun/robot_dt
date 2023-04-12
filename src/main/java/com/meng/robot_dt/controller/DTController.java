@@ -17,9 +17,8 @@ public class DTController {
     DTEntityService dtEntityService;
 
     @RequestMapping(value = "/addDTType", method = RequestMethod.GET)
-    public String addDTType(Integer entity_type_id,String entity_type_name){
+    public String addDTType(String entity_type_name){
         DTEntity dtEntity = new DTEntity();
-        dtEntity.setEntity_type_id(entity_type_id);
         dtEntity.setEntity_type_name(entity_type_name);
         try {
             dtEntityService.addDTType(dtEntity);
@@ -191,7 +190,6 @@ public class DTController {
     @RequestMapping(value = "/addValue", method = RequestMethod.GET)
     public String addValue(Integer value_id,Integer entity_id,Integer attribute_id,Integer value_type_id,String value){
         DTEntity dtEntity = new DTEntity();
-        dtEntity.setValue_id(value_id);
         dtEntity.setEntity_id(entity_id);
         dtEntity.setAttribute_id(attribute_id);
         dtEntity.setValue_type_id(value_type_id);
@@ -245,6 +243,18 @@ public class DTController {
     @RequestMapping(value="/getAllValue", method = RequestMethod.GET)
     public String getAllValue(Integer value_type_id){
         List<DTEntity> dtEntities = dtEntityService.getAllValue(value_type_id);
+        return dtEntities.toString();
+    }
+
+    @RequestMapping(value="/getAllAttribute", method = RequestMethod.GET)
+    public String getAllAttribute(Integer entity_type_id){
+        List<DTEntity> dtEntities = dtEntityService.getAllAttribute(entity_type_id);
+        return dtEntities.toString();
+    }
+
+    @RequestMapping(value="/getAllDT", method = RequestMethod.GET)
+    public String getAllDT(Integer entity_type_id){
+        List<DTEntity> dtEntities = dtEntityService.getAllDT(entity_type_id);
         return dtEntities.toString();
     }
 }
