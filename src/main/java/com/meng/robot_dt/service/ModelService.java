@@ -33,9 +33,9 @@ public class ModelService {
     ModelMapper modelMapper;
     public int addModel(String model_name, String model_type, String upload_user, String file_format,MultipartFile coverImg, MultipartFile[] modelFiles) throws IOException {
         // 下载封面图和场景json
-        String modelPath = "/userData/robotDT/static/model";
+//        String modelPath = "/userData/robotDT/static/model";
         String filePath = "/static/model";
-//        String modelPath = "D:\\documents\\temp";
+        String modelPath = "D:\\documents\\temp";
 
         File path = new File(modelPath);
         //创建上传文件夹

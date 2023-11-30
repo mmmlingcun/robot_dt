@@ -35,9 +35,9 @@ public class SceneService {
     SceneMapper sceneMapper;
     public int addScene(String scene_name, String upload_user, String file_format,MultipartFile coverImg, MultipartFile[] sceneFiles) throws IOException {
         // 下载封面图和场景json
-        String scenePath = "/userData/robotDT/static/scene";
+//        String scenePath = "/userData/robotDT/static/scene";
         String filePath = "/static/scene";
-//        String scenePath = "D:\\documents\\temp";
+        String scenePath = "D:\\documents\\temp";
 
         File path = new File(scenePath);
         //创建上传文件夹

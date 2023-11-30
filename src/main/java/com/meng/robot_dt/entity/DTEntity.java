@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
+import com.alibaba.fastjson.JSON;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -55,7 +55,12 @@ public class DTEntity {
             map.put("\"is_required\"","\""+is_required+"\"");
         }
         if(example_data!=null) {
-            map.put("\"example_data\"","\""+example_data+"\"");
+            try{
+                Object obj = JSON.parse(example_data);
+                map.put("\"example_data\"",example_data);
+            }catch (Exception e){
+                map.put("\"example_data\"","\""+example_data+"\"");
+            }
         }
         if(value_type_id!=null) {
             map.put("\"value_type_id\"","\""+value_type_id+"\"");

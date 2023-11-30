@@ -17,6 +17,9 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.xml.crypto.Data;
+
 @CrossOrigin
 @RestController
 public class MsgController {
@@ -247,6 +250,7 @@ public class MsgController {
 
     @GetMapping("/msgplc2")
     public String msgPlc2() throws InterruptedException, MqttException {
+        //从PLS中读取数据
         SiemensS7Net siemensTcpNet = new SiemensS7Net(SiemensPLCS.S1200, "192.168.150.60");
         siemensTcpNet.SetPersistentConnection();
         while (true){
@@ -339,4 +343,54 @@ public class MsgController {
 //        siemensTcpNet.ConnectClose();
 //        return "a";
     }
+
+    @GetMapping("/msgplc3")
+    public String msgset3() throws MqttException {
+        for (int i = 0; i < 60; i++) {
+            int data = i;
+            long totalMilliSeconds = System.currentTimeMillis();
+            mqttConnect.pub("data","{" +
+                    "    \"timestamp\":"+totalMilliSeconds+"," +
+                    "    \"clientId\":\"ykg3557\"," +
+                    "    \"version\":\"5.0\"," +
+                    "    \"devices\":[" +
+                    "        {" +
+                    "            \"deviceId\":\"ER20\"," +
+                    "            \"deviceState\":1," +
+                    "            \"deviceData\":{" +
+//                        "                \"tool1\":"+tool1+"," +
+//                        "                \"tool2\":"+tool1+"," +
+//                        "                \"tool3\":"+tool1+"," +
+//                        "                \"tool4\":"+tool1+"," +
+                    "                \"ER20-1\":"+data+"," +
+                    "                \"ER20-2\":"+data+"," +
+                    "                \"ER20-3\":"+data+"," +
+                    "                \"ER20-4\":"+data+"," +
+                    "                \"ER20-5\":"+data+"," +
+                    "                \"ER20-6\":"+data+"," +
+                    "                \"ER20-1_1\":"+data+"," +
+                    "                \"ER20-2_1\":"+data+"," +
+                    "                \"ER20-3_1\":"+data+"," +
+                    "                \"ER20-4_1\":"+data+"," +
+                    "                \"ER20-5_1\":"+data+"," +
+                    "                \"ER20-6_1\":"+data+"," +
+                    "                \"ER20-1_2\":"+data+"," +
+                    "                \"ER20-2_2\":"+data+"," +
+                    "                \"ER20-3_2\":"+data+"," +
+                    "                \"ER20-4_2\":"+data+"," +
+                    "                \"ER20-5_2\":"+data+"," +
+                    "                \"ER20-6_2\":"+data+"," +
+                    "                \"ER20-1_3\":"+data+"," +
+                    "                \"ER20-2_3\":"+data+"," +
+                    "                \"ER20-3_3\":"+data+"," +
+                    "                \"ER20-4_3\":"+data+"," +
+                    "                \"ER20-5_3\":"+data+"," +
+                    "                \"ER20-6_3\":"+data+"" +
+                    "            }" +
+                    "        }" +
+                    "    ]" +
+                    "}");
+        }
+        return "msgset3";
+    };
 }
