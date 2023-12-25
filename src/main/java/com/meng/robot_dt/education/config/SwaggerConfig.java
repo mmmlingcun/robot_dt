@@ -39,7 +39,7 @@ public class SwaggerConfig {
                 .pathMapping("/")
                 .select()
                 // 指向自己的controller即可
-                .apis(RequestHandlerSelectors.basePackage("com.huibo"))
+                .apis(RequestHandlerSelectors.basePackage("com.meng"))
                 .paths(PathSelectors.any())
                 .build()
                 .securitySchemes(securitySchemes())

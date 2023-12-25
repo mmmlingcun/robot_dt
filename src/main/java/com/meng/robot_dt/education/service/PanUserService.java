@@ -5,6 +5,7 @@ import com.meng.robot_dt.education.controller.vo.PanUserVo;
 import com.meng.robot_dt.education.entity.PanUser;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface PanUserService {
 
@@ -29,4 +30,6 @@ public interface PanUserService {
     Page<PanUser> findPage(PanUserQueryDto queryDto, Pageable page);
 
     boolean checkUnique(PanUserCheckDto checkDto);
+
+    void excelImport(MultipartFile multipartFile);
 }

@@ -5,16 +5,20 @@ import com.meng.robot_dt.education.common.exception.BusinessException;
 import com.meng.robot_dt.education.common.exception.NoEntityFoundException;
 import com.meng.robot_dt.education.controller.dto.*;
 import com.meng.robot_dt.education.controller.vo.PanUserVo;
+import com.meng.robot_dt.education.controller.vo.UserExcelVo;
 import com.meng.robot_dt.education.entity.PanUser;
+import com.meng.robot_dt.education.handler.ExcelHandler;
 import com.meng.robot_dt.education.repository.PanUserRepository;
 import com.meng.robot_dt.education.service.PanUserService;
 import com.meng.robot_dt.education.util.kit.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.persistence.criteria.Predicate;
@@ -22,6 +26,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * @author taorun
@@ -35,6 +41,9 @@ public class PanUserServiceImpl implements PanUserService {
 
     @Resource
     private StringRedisTemplate stringRedisTemplate;
+
+    @Autowired
+    private ExcelHandler excelHandler;
 
     @Override
     public PanUserVo register(PanUserAddDto addDto) {
@@ -136,6 +145,16 @@ public class PanUserServiceImpl implements PanUserService {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public void excelImport(MultipartFile multipartFile) {
+        try {
+            List<PanUser> users = excelHandler.importExcel(multipartFile, UserExcelVo.class, null, null).stream().map(UserExcelVo::getPanUser).collect(toList());
+            panUserRepository.saveAll(users);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private Specification<PanUser> getSpecification(PanUserQueryDto queryDto) {

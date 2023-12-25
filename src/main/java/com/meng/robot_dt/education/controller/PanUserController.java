@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -80,5 +81,19 @@ public class PanUserController {
     @PostMapping("/reset/password")
     public ResponseEntity resetPassword(@RequestBody @Valid ResetPasswordDto resetDto) {
         return ResponseEntity.ok(panUserService.resetPassword(resetDto));
+    }
+
+    /**
+     * excel导入-单个sheet
+     *
+     * @param multipartFile 文件流
+     * @return
+     * @throws Exception
+     */
+    @PostMapping("/excelImport")
+    @ApiOperation(value = "excel导入")
+    public ResponseEntity<Object> excelImport(@RequestParam("file") MultipartFile multipartFile) {
+        panUserService.excelImport(multipartFile);
+        return ResponseEntity.ok().build();
     }
 }
