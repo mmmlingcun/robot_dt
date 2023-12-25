@@ -1,22 +1,38 @@
+server:
+  port: 9132
+  servlet:
+    context-path: /
+  tomcat:
+    max-http-form-post-size: -1
+    #mybatis:
+    #  mapper-locations: classpath:ModelMapper/*.xml
+    #  type-aliases-package: com.meng.robot_dt.entity
+    #设置上传文件最大尺寸
 spring:
+  application:
+    name: robot
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://localhost:3307/webrobot?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
+    username: root
+    password: 123456
+  servlet:
+    multipart:
+      max-request-size: 200MB
+      max-file-size: 200MB
   redis:
     host: 127.0.0.1
     database: 0
     port: 6379
     password:
-  datasource:
-    type: com.alibaba.druid.pool.DruidDataSource
-    username: root
-    password: 123456
-    url: jdbc:mysql://localhost:3306/webrobot?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
-  servlet:
-    multipart:
-      max-request-size: 500MB
-      max-file-size: 500MB
-server:
-  tomcat:
-    max-http-form-post-size: -1
-      #mybatis:
-      #  mapper-locations: classpath:ModelMapper/*.xml
-      #  type-aliases-package: com.meng.robot_dt.entity
-      #设置上传文件最大尺寸
+
+interceptor:
+  enable: true
+
+cors:
+  enable: true
