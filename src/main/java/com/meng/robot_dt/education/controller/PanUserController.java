@@ -3,6 +3,7 @@ package com.meng.robot_dt.education.controller;
 import com.meng.robot_dt.education.controller.dto.*;
 import com.meng.robot_dt.education.controller.vo.PanUserVo;
 import com.meng.robot_dt.education.service.PanUserService;
+import com.meng.robot_dt.education.service.UserCourseService;
 import com.meng.robot_dt.education.util.kit.ConvertKit;
 import com.meng.robot_dt.education.util.kit.TokenKit;
 import io.swagger.annotations.Api;
@@ -28,6 +29,9 @@ public class PanUserController {
 
     @Resource
     private PanUserService panUserService;
+
+    @Resource
+    private UserCourseService userCourseService;
 
     @ApiOperation("检查用户唯一性")
     @GetMapping("/check-unique")
@@ -90,10 +94,24 @@ public class PanUserController {
      * @return
      * @throws Exception
      */
-    @PostMapping("/excelImport")
-    @ApiOperation(value = "excel导入")
-    public ResponseEntity<Object> excelImport(@RequestParam("file") MultipartFile multipartFile) {
+    @PostMapping("/excelImport/user")
+    @ApiOperation(value = "excel导入用户")
+    public ResponseEntity<Object> excelImportUser(@RequestParam("file") MultipartFile multipartFile) {
         panUserService.excelImport(multipartFile);
+        return ResponseEntity.ok().build();
+    }
+
+    /**
+     * excel导入-单个sheet
+     *
+     * @param multipartFile 文件流
+     * @return
+     * @throws Exception
+     */
+    @PostMapping("/excelImport/userCourse")
+    @ApiOperation(value = "excel导入用户关联课程")
+    public ResponseEntity<Object> excelImportUserCourse(@RequestParam("file") MultipartFile multipartFile) {
+        userCourseService.excelImport(multipartFile);
         return ResponseEntity.ok().build();
     }
 }
