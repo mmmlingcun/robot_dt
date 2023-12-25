@@ -6,10 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import java.util.Date;
-import java.util.List;
 
 /**
  * @author ：cola
@@ -19,29 +16,29 @@ import java.util.List;
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)
-public class UserCourse extends BaseEntity {
+public class UserCourseStep extends BaseEntity {
 
-    @ManyToOne
-    private PanUser panUser;
-
-    @ManyToOne
-    private Course course;
-
-    @ApiModelProperty("实验状态：1 - 完成；2 - 未完成")
-    private Integer status;
+    @ApiModelProperty("步骤名称")
+    private String name;
 
     @ApiModelProperty("开始时间")
-    private Date creatTime;
+    private Date startTime;
 
     @ApiModelProperty("结束时间")
     private Date endTime;
 
     @ApiModelProperty("时长")
-    private String duration;
+    private String timeUsed;
 
-    @ApiModelProperty("分数")
+    @ApiModelProperty("实验步骤满分")
+    private Integer maxScore;
+
+    @ApiModelProperty("实验步骤得分")
     private Integer score;
 
-    @OneToMany
-    private List<UserCourseStep> userCourseSteps;
+    @ApiModelProperty("实验步骤操作次数")
+    private Integer repeatCount;
+
+    @ApiModelProperty("步骤评价")
+    private String evaluation;
 }
