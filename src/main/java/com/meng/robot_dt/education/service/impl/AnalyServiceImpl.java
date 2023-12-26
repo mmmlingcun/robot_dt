@@ -4,14 +4,13 @@ import com.meng.robot_dt.education.controller.dto.AnalyUpdateDto;
 import com.meng.robot_dt.education.entity.Analy;
 import com.meng.robot_dt.education.repository.AnalyRepository;
 import com.meng.robot_dt.education.service.AnalyService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author taorun
@@ -41,11 +40,36 @@ public class AnalyServiceImpl implements AnalyService {
     }
 
     @Override
-    public boolean update(AnalyUpdateDto dto) {
-        Optional<Analy> optional = analyRepository.findById(dto.getId());
-        if (optional.isPresent()) {
-            Analy analy = optional.get();
-            BeanUtils.copyProperties(dto, analy);
+    @Transactional
+    public boolean update(AnalyUpdateDto updateDto) {
+        List<Analy> analies = analyRepository.findAll();
+        if (!CollectionUtils.isEmpty(analies)) {
+            analies.forEach(item -> {
+                if (updateDto.getDurationNum() != null) {
+                    item.setDurationNum(item.getDurationNum() + 1);
+                }
+                if (updateDto.getExperimentNum() != null) {
+                    item.setExperimentNum(item.getExperimentNum() + 1);
+                }
+                if (updateDto.getUserNum() != null) {
+                    item.setUserNum(item.getUserNum() + 1);
+                }
+                if (updateDto.getAverageTimeNum() != null) {
+                    item.setAverageTimeNum(item.getAverageTimeNum() + 1);
+                }
+                if (updateDto.getDoAverageNum() != null) {
+                    item.setDoAverageNum(item.getDoAverageNum() + 1);
+                }
+                if (updateDto.getCourseNum() != null) {
+                    item.setCourseNum(item.getCourseNum() + 1);
+                }
+                if (updateDto.getViewVolumeNum() != null) {
+                    item.setViewVolumeNum(item.getViewVolumeNum() + 1);
+                }
+                if (updateDto.getLoginNum() != null) {
+                    item.setLoginNum(item.getLoginNum() + 1);
+                }
+            });
             return true;
         } else return false;
     }

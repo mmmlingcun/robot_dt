@@ -4,5 +4,5 @@ import com.meng.robot_dt.education.controller.dto.AnalyUpdateDto;
 
 public interface AnalyService {
 
-    boolean update(AnalyUpdateDto dto);
+    boolean update(AnalyUpdateDto updateDto);
 }

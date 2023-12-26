@@ -7,12 +7,10 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import javax.validation.Valid;
 
 /**
  * @author taorun
@@ -31,7 +29,7 @@ public class AnalyController {
 
     @ApiOperation("更新")
     @PutMapping("/update")
-    public ResponseEntity updateMQ(@RequestBody @Valid AnalyUpdateDto updateDto) {
+    public ResponseEntity update(AnalyUpdateDto updateDto) {
         return ResponseEntity.ok(analyService.update(updateDto));
     }
 

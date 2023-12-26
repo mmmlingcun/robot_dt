@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author ：cola
@@ -12,6 +13,8 @@ import java.util.Date;
  */
 @Data
 public class UserCourseAddDto {
+
+    private Long id;
 
     @ApiModelProperty("用户名称")
     private String username;
@@ -33,4 +36,6 @@ public class UserCourseAddDto {
 
     @ApiModelProperty("分数")
     private Integer score;
+
+    private List<UserCourseStepAddDto> steps;
 }
