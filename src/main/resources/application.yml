@@ -18,9 +18,9 @@ spring:
       ddl-auto: update
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://localhost:3307/webrobot?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
+    url: jdbc:mysql://localhost:3306/webrobot?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
     username: root
-    password: 123456
+    password: huibo2022
   servlet:
     multipart:
       max-request-size: 200MB
@@ -35,7 +35,7 @@ spring:
     time-zone: GMT+8
 
 interceptor:
-  enable: false
+  enable: true
 
 cors:
-  enable: false
+  enable: true

@@ -43,7 +43,9 @@ public class WebMvc implements WebMvcConfigurer {
                                 "/license/**",
                                 "/password/**",
                                 "/user/reset/password/apply",
-                                "/user/get/apply"
+                                "/user/get/apply",
+                                "/analy/**",
+                                "/user-course/list",
                         });
 
     }

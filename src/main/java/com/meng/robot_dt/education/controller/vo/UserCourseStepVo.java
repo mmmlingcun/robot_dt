@@ -41,6 +41,8 @@ public class UserCourseStepVo {
     @ApiModelProperty("步骤评价")
     private String evaluation;
 
+    private UserCourseStep.Type type;
+
     public UserCourseStepVo(UserCourseStep userCourseStep) {
         if (userCourseStep != null) {
             BeanUtils.copyProperties(userCourseStep, this);
