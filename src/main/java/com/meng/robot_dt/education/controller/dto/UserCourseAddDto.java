@@ -17,10 +17,10 @@ public class UserCourseAddDto {
     private Long id;
 
     @ApiModelProperty("用户名称")
-    private String username;
+    private Long userId;
 
     @ApiModelProperty("实验课程名称")
-    private String courseName;
+    private String courseId;
 
     @ApiModelProperty("实验状态：1 - 完成；2 - 未完成")
     private Integer status;

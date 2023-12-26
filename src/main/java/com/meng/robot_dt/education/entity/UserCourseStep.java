@@ -2,11 +2,16 @@ package com.meng.robot_dt.education.entity;
 
 import com.meng.robot_dt.education.common.BaseEntity;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import java.util.Date;
+
+import static javax.persistence.EnumType.STRING;
 
 /**
  * @author ：cola
@@ -17,6 +22,8 @@ import java.util.Date;
 @Entity
 @EqualsAndHashCode(callSuper = true)
 public class UserCourseStep extends BaseEntity {
+
+    private Long id;
 
     @ApiModelProperty("步骤名称")
     private String name;
@@ -41,4 +48,26 @@ public class UserCourseStep extends BaseEntity {
 
     @ApiModelProperty("步骤评价")
     private String evaluation;
+
+    @Enumerated(STRING)
+    private Type type;
+
+    @Getter
+    @AllArgsConstructor
+    public enum Type {
+
+        THEORY("理论"),
+        PRACTICE("实操");
+
+        private String description;
+
+        public static Type getType(String code) {
+            for (Type type : values()) {
+                if (type.description.equals(code)) {
+                    return type;
+                }
+            }
+            return Type.THEORY;
+        }
+    }
 }

@@ -1,5 +1,6 @@
 package com.meng.robot_dt.education.controller.dto;
 
+import com.meng.robot_dt.education.entity.UserCourseStep;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -36,4 +37,6 @@ public class UserCourseStepAddDto {
 
     @ApiModelProperty("步骤评价")
     private String evaluation;
+
+    private UserCourseStep.Type type;
 }

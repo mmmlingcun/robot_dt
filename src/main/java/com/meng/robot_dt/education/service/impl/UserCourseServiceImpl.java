@@ -16,6 +16,7 @@ import com.meng.robot_dt.education.repository.CourseRepository;
 import com.meng.robot_dt.education.repository.PanUserRepository;
 import com.meng.robot_dt.education.repository.UserCourseRepository;
 import com.meng.robot_dt.education.repository.UserCourseStepRepository;
+import com.meng.robot_dt.education.service.PanUserService;
 import com.meng.robot_dt.education.service.UserCourseService;
 import com.meng.robot_dt.education.util.kit.StringKit;
 import org.springframework.beans.BeanUtils;
@@ -55,24 +56,34 @@ public class UserCourseServiceImpl implements UserCourseService {
     @Autowired
     private UserCourseStepRepository userCourseStepRepository;
 
+    @Autowired
+    private PanUserService panUserService;
+
     @Override
     public UserCourse add(UserCourseAddDto dto) {
         UserCourse userCourse = new UserCourse();
+        List<UserCourseStep> userCourseSteps = Lists.newArrayList();
         if (dto.getId() != null) {
             userCourse = findById(dto.getId());
-            List<UserCourseStep> userCourseSteps = userCourse.getUserCourseSteps();
-            if (!CollectionUtils.isEmpty(userCourseSteps)) {
-                userCourseStepRepository.deleteAll(userCourseSteps);
-            }
+            userCourseSteps = userCourse.getUserCourseSteps();
         }
         BeanUtils.copyProperties(dto, userCourse);
+        if (dto.getUserId() != null) {
+            userCourse.setPanUser(panUserService.findById(dto.getUserId()));
+        }
+        if (dto.getCourseId() != null) {
+            userCourse.setCourse(courseRepository.findById(dto.getUserId()).orElse(null));
+        }
         List<UserCourseStepAddDto> dtos = dto.getSteps();
         if (!CollectionUtils.isEmpty(dtos)) {
-            userCourse.setUserCourseSteps(userCourseStepRepository.saveAll(dtos.stream().map(x -> {
+            List<UserCourseStep> steps = dtos.stream().map(x -> {
                 UserCourseStep courseStep = new UserCourseStep();
                 BeanUtils.copyProperties(x, courseStep);
                 return courseStep;
-            }).collect(toList())));
+            }).collect(toList());
+            userCourseStepRepository.saveAll(steps);
+            userCourseSteps.addAll(steps);
+            userCourse.setUserCourseSteps(userCourseSteps);
         }
         return userCourse;
     }

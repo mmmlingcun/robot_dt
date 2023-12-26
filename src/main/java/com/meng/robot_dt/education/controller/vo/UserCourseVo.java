@@ -1,6 +1,5 @@
 package com.meng.robot_dt.education.controller.vo;
 
-import com.meng.robot_dt.education.entity.PanUser;
 import com.meng.robot_dt.education.entity.UserCourse;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -21,7 +20,7 @@ public class UserCourseVo {
 
     private Long id;
 
-    private PanUser panUserVo;
+    private PanUserVo panUserVo;
 
     private CourseVo courseVo;
 
@@ -47,6 +46,12 @@ public class UserCourseVo {
             BeanUtils.copyProperties(userCourse, this);
             if (!CollectionUtils.isEmpty(userCourse.getUserCourseSteps())) {
                 this.userCourseSteps = userCourse.getUserCourseSteps().stream().map(UserCourseStepVo::new).collect(Collectors.toList());
+            }
+            if (userCourse.getPanUser() != null) {
+                this.panUserVo = new PanUserVo(userCourse.getPanUser());
+            }
+            if (userCourse.getCourse() != null) {
+                this.courseVo = new CourseVo(userCourse.getCourse());
             }
         }
     }
