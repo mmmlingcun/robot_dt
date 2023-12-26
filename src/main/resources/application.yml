@@ -30,9 +30,12 @@ spring:
     database: 0
     port: 6379
     password:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
 
 interceptor:
-  enable: true
+  enable: false
 
 cors:
-  enable: true
+  enable: false

@@ -72,7 +72,7 @@ public class UserCourseServiceImpl implements UserCourseService {
             userCourse.setPanUser(panUserService.findById(dto.getUserId()));
         }
         if (dto.getCourseId() != null) {
-            userCourse.setCourse(courseRepository.findById(dto.getUserId()).orElse(null));
+            userCourse.setCourse(courseRepository.findById(dto.getCourseId()).orElse(null));
         }
         List<UserCourseStepAddDto> dtos = dto.getSteps();
         if (!CollectionUtils.isEmpty(dtos)) {
@@ -85,6 +85,7 @@ public class UserCourseServiceImpl implements UserCourseService {
             userCourseSteps.addAll(steps);
             userCourse.setUserCourseSteps(userCourseSteps);
         }
+        userCourseRepository.save(userCourse);
         return userCourse;
     }
 

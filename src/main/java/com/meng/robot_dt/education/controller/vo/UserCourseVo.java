@@ -1,6 +1,7 @@
 package com.meng.robot_dt.education.controller.vo;
 
 import com.meng.robot_dt.education.entity.UserCourse;
+import com.meng.robot_dt.education.util.kit.ConvertKit;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.springframework.beans.BeanUtils;
@@ -48,7 +49,7 @@ public class UserCourseVo {
                 this.userCourseSteps = userCourse.getUserCourseSteps().stream().map(UserCourseStepVo::new).collect(Collectors.toList());
             }
             if (userCourse.getPanUser() != null) {
-                this.panUserVo = new PanUserVo(userCourse.getPanUser());
+                this.panUserVo = ConvertKit.convert(userCourse.getPanUser(), PanUserVo.class);
             }
             if (userCourse.getCourse() != null) {
                 this.courseVo = new CourseVo(userCourse.getCourse());

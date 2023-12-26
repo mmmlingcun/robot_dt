@@ -70,7 +70,7 @@ public class PanUserServiceImpl implements PanUserService {
             throw new BusinessException("密码错误");
         }
         // 存储 token
-        PanUserVo userVo = new PanUserVo(user);
+        PanUserVo userVo = ConvertKit.convert(user, PanUserVo.class);
         userVo.setToken(Base64Kit.encode(user.getId() + "." + user.getUsername() + "." + UUID.randomUUID()));
         stringRedisTemplate.opsForValue().set(RedisConstant.TOKEN + user.getId(), userVo.getToken(), 3600 * 16, TimeUnit.SECONDS); // token有效时长：16小时
         return userVo;

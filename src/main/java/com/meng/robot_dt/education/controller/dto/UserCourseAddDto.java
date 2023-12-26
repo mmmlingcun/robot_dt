@@ -20,7 +20,7 @@ public class UserCourseAddDto {
     private Long userId;
 
     @ApiModelProperty("实验课程名称")
-    private String courseId;
+    private Long courseId;
 
     @ApiModelProperty("实验状态：1 - 完成；2 - 未完成")
     private Integer status;
