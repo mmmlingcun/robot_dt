@@ -31,10 +31,6 @@ public class AnalyServiceImpl implements AnalyService {
             analy.setExperimentNum(12841L);
             analy.setUserNum(10458L);
             analy.setAverageTimeNum(86L);
-            analy.setDoAverageNum(38L);
-            analy.setCourseNum(67L);
-            analy.setLoginNum(352L);
-            analy.setDurationNum(1032L);
             analyRepository.save(analy);
         }
     }
@@ -45,9 +41,6 @@ public class AnalyServiceImpl implements AnalyService {
         List<Analy> analies = analyRepository.findAll();
         if (!CollectionUtils.isEmpty(analies)) {
             analies.forEach(item -> {
-                if (updateDto.getDurationNum() != null) {
-                    item.setDurationNum(item.getDurationNum() + 1);
-                }
                 if (updateDto.getExperimentNum() != null) {
                     item.setExperimentNum(item.getExperimentNum() + 1);
                 }
@@ -57,17 +50,8 @@ public class AnalyServiceImpl implements AnalyService {
                 if (updateDto.getAverageTimeNum() != null) {
                     item.setAverageTimeNum(item.getAverageTimeNum() + 1);
                 }
-                if (updateDto.getDoAverageNum() != null) {
-                    item.setDoAverageNum(item.getDoAverageNum() + 1);
-                }
-                if (updateDto.getCourseNum() != null) {
-                    item.setCourseNum(item.getCourseNum() + 1);
-                }
                 if (updateDto.getViewVolumeNum() != null) {
                     item.setViewVolumeNum(item.getViewVolumeNum() + 1);
-                }
-                if (updateDto.getLoginNum() != null) {
-                    item.setLoginNum(item.getLoginNum() + 1);
                 }
             });
             return true;

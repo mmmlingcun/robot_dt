@@ -28,16 +28,4 @@ public class Analy extends BaseEntity {
 
     @ApiModelProperty("实验平均用时")
     private Long averageTimeNum;
-
-    @ApiModelProperty("做过实验数量")
-    private Long doAverageNum;
-
-    @ApiModelProperty("学习课程数量")
-    private Long courseNum;
-
-    @ApiModelProperty("登录次数")
-    private Long loginNum;
-
-    @ApiModelProperty("在线时长")
-    private Long durationNum;
 }
