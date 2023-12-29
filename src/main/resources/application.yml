@@ -39,3 +39,10 @@ interceptor:
 
 cors:
   enable: true
+
+i-lab:
+  config:
+    # 正式环境url:http://www.ilab-x.com
+    url: http://39.105.173.29
+    app-id: 10000
+    secret: DDO7jw9TAZlLwRLRKSpBWXIlYZe9PKaD5Wc1S5ZQ0U8=
