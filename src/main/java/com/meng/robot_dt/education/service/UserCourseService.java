@@ -24,4 +24,8 @@ public interface UserCourseService {
      * @param response 响应体
      */
     void excelExport(UserCourseQueryDto queryDto, HttpServletResponse response);
+
+    void initUserCourseStep(UserCourseQueryDto queryDto);
+
+    void test();
 }

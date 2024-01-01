@@ -54,6 +54,13 @@ public class UserCourseController extends BaseController {
         return ResponseEntity.ok().build();
     }
 
+    @PostMapping("/userCourseStep")
+    @ApiOperation(value = "初始化步骤")
+    public ResponseEntity<Object> init(UserCourseQueryDto queryDto) {
+        userCourseService.initUserCourseStep(queryDto);
+        return ResponseEntity.ok().build();
+    }
+
     /**
      * excel导出-单个sheet
      *
@@ -63,5 +70,10 @@ public class UserCourseController extends BaseController {
     @GetMapping("/excelExport")
     public void exportCsv(UserCourseQueryDto queryDto, HttpServletResponse response) {
         userCourseService.excelExport(queryDto, response);
+    }
+
+    @GetMapping("/test")
+    public void test() {
+        userCourseService.test();
     }
 }

@@ -4,6 +4,9 @@ import org.apache.commons.lang3.time.DateUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 
 /**
@@ -43,4 +46,36 @@ public class DateKit extends DateUtils {
         return simpleDateFormat.format(date);
     }
 
+    /**
+     * 对时间做加法运算
+     *
+     * @return
+     */
+    public static Date plusMinutes(Date date, Long minutes) {
+        // 将Date转换为Instant
+        Instant instant = date.toInstant();
+        // 将Instant转换为LocalDateTime
+        LocalDateTime localDateTime = instant.atZone(ZoneId.systemDefault()).toLocalDateTime();
+        LocalDateTime futureTime = localDateTime.plusMinutes(minutes);
+        return Date.from(futureTime.atZone(ZoneId.systemDefault()).toInstant());
+    }
+
+    /**
+     * 对时间做假发运算
+     *
+     * @return
+     */
+    public static Date plusHours(Date date, Long hours) {
+        // 将Date转换为Instant
+        Instant instant = date.toInstant();
+        // 将Instant转换为LocalDateTime
+        LocalDateTime localDateTime = instant.atZone(ZoneId.systemDefault()).toLocalDateTime();
+        LocalDateTime futureTime = localDateTime.plusHours(hours);
+        return Date.from(futureTime.atZone(ZoneId.systemDefault()).toInstant());
+    }
+
+    public static void main(String[] args) {
+        System.out.println(format(plusMinutes(new Date(), 20L), DATE_TIME_FORMAT));
+        ;
+    }
 }
