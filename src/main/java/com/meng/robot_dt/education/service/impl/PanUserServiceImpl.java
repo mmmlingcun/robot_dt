@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static java.util.stream.Collectors.toList;
 
@@ -134,6 +135,18 @@ public class PanUserServiceImpl implements PanUserService {
     @Override
     public Page<PanUser> findPage(PanUserQueryDto queryDto, Pageable page) {
         return panUserRepository.findAll(getSpecification(queryDto), page);
+    }
+
+    @Override
+    public void test() {
+        List<PanUser> users = panUserRepository.findAll();
+        AtomicInteger i = new AtomicInteger(1000000);
+        users.forEach(item -> {
+            item.setUserCode(String.valueOf(i.get() + 1));
+            item.setUserStudentId(String.valueOf(i.get() + 1));
+            i.getAndIncrement();
+        });
+        panUserRepository.saveAll(users);
     }
 
     @Override

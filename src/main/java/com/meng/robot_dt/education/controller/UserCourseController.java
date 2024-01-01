@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 /**
@@ -51,5 +52,16 @@ public class UserCourseController extends BaseController {
     public ResponseEntity<Object> excelImportUserCourse(@RequestParam("file") MultipartFile multipartFile) {
         userCourseService.excelImport(multipartFile);
         return ResponseEntity.ok().build();
+    }
+
+    /**
+     * excel导出-单个sheet
+     *
+     * @param response 响应流
+     */
+    @ApiOperation(value = "excel导出", httpMethod = "GET")
+    @GetMapping("/excelExport")
+    public void exportCsv(UserCourseQueryDto queryDto, HttpServletResponse response) {
+        userCourseService.excelExport(queryDto, response);
     }
 }

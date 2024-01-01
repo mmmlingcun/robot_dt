@@ -2,10 +2,12 @@ package com.meng.robot_dt.education.service.impl;
 
 import com.alibaba.excel.support.ExcelTypeEnum;
 import com.google.common.collect.Lists;
+import com.meng.robot_dt.education.common.exception.BusinessException;
 import com.meng.robot_dt.education.common.exception.NoEntityFoundException;
 import com.meng.robot_dt.education.controller.dto.UserCourseAddDto;
 import com.meng.robot_dt.education.controller.dto.UserCourseQueryDto;
 import com.meng.robot_dt.education.controller.dto.UserCourseStepAddDto;
+import com.meng.robot_dt.education.controller.vo.UserCourseExcelExportVo;
 import com.meng.robot_dt.education.controller.vo.UserCourseExcelVo;
 import com.meng.robot_dt.education.entity.Course;
 import com.meng.robot_dt.education.entity.PanUser;
@@ -28,6 +30,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.persistence.criteria.Predicate;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 
@@ -110,6 +113,16 @@ public class UserCourseServiceImpl implements UserCourseService {
             userCourseRepository.saveAll(userCourses);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void excelExport(UserCourseQueryDto queryDto, HttpServletResponse response) {
+        try {
+            List<UserCourseExcelExportVo> devices = findAll(queryDto).stream().map(UserCourseExcelExportVo::new).collect(toList());
+            excelHandler.exportExcel(response, devices, UserCourseExcelExportVo.class, "userCourse", "userCourse", ExcelTypeEnum.XLSX);
+        } catch (Exception e) {
+            throw new BusinessException("导出失败");
         }
     }
 

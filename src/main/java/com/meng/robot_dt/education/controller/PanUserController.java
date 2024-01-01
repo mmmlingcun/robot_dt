@@ -77,6 +77,13 @@ public class PanUserController {
         return ResponseEntity.ok(panUserService.findPage(queryDto, page).map(panUser -> ConvertKit.convert(panUser, PanUserVo.class)));
     }
 
+    @ApiOperation("分页查询")
+    @GetMapping("/test")
+    public ResponseEntity test() {
+        panUserService.test();
+        return ResponseEntity.ok().build();
+    }
+
     @ApiOperation("重置密码")
     @PostMapping("/reset/password")
     public ResponseEntity resetPassword(@RequestBody @Valid ResetPasswordDto resetDto) {

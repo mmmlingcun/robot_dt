@@ -1,9 +1,13 @@
 package com.meng.robot_dt.education.service.impl;
 
 import com.meng.robot_dt.education.controller.dto.AnalyUpdateDto;
+import com.meng.robot_dt.education.controller.dto.UserCourseQueryDto;
+import com.meng.robot_dt.education.controller.vo.AnalyVo;
 import com.meng.robot_dt.education.entity.Analy;
+import com.meng.robot_dt.education.entity.UserCourse;
 import com.meng.robot_dt.education.repository.AnalyRepository;
 import com.meng.robot_dt.education.service.AnalyService;
+import com.meng.robot_dt.education.service.UserCourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +25,9 @@ public class AnalyServiceImpl implements AnalyService {
 
     @Autowired
     private AnalyRepository analyRepository;
+
+    @Autowired
+    private UserCourseService userCourseService;
 
     @PostConstruct
     private void init() {
@@ -56,5 +63,14 @@ public class AnalyServiceImpl implements AnalyService {
             });
             return true;
         } else return false;
+    }
+
+    @Override
+    public AnalyVo calculate() {
+        AnalyVo result = new AnalyVo();
+        List<UserCourse> userCourses = userCourseService.findAll(new UserCourseQueryDto());
+        result.setExpNum(userCourses.size());
+        userCourses.stream().map(UserCourse::getDuration);
+        return null;
     }
 }

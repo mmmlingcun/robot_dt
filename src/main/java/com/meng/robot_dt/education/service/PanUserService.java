@@ -29,6 +29,8 @@ public interface PanUserService {
 
     Page<PanUser> findPage(PanUserQueryDto queryDto, Pageable page);
 
+    void test();
+
     boolean checkUnique(PanUserCheckDto checkDto);
 
     void excelImport(MultipartFile multipartFile);

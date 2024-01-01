@@ -15,4 +15,9 @@ public class PanUserVo {
     private String nickname;
     private String token;
     private Boolean isAdmin;
+    private String schoolName;
+
+    private String userStudentId;
+
+    private String userCode;
 }

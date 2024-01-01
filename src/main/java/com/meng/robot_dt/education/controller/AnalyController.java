@@ -60,4 +60,6 @@ public class AnalyController {
     public ResponseEntity userAnalyFind(@RequestParam Long userId) {
         return ResponseEntity.ok(userAnalyRepository.findByUser_Id(userId).orElse(null));
     }
+
+
 }
