@@ -2,6 +2,7 @@ package com.meng.robot_dt.education.controller;
 
 import com.meng.robot_dt.education.controller.dto.AnalyUpdateDto;
 import com.meng.robot_dt.education.controller.dto.UserAnalyUpdateDto;
+import com.meng.robot_dt.education.controller.dto.UserCourseQueryDto;
 import com.meng.robot_dt.education.repository.AnalyRepository;
 import com.meng.robot_dt.education.repository.UserAnalyRepository;
 import com.meng.robot_dt.education.service.AnalyService;
@@ -9,10 +10,7 @@ import com.meng.robot_dt.education.service.UserAnalyService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -61,5 +59,9 @@ public class AnalyController {
         return ResponseEntity.ok(userAnalyRepository.findByUser_Id(userId).orElse(null));
     }
 
-
+    @ApiOperation("统计")
+    @GetMapping("/calculate")
+    public ResponseEntity calculate(UserCourseQueryDto queryDto) {
+        return ResponseEntity.ok(analyService.calculate(queryDto));
+    }
 }

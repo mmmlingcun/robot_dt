@@ -1,5 +1,6 @@
 package com.meng.robot_dt.education.service.impl;
 
+import com.google.common.collect.Maps;
 import com.meng.robot_dt.education.controller.dto.AnalyUpdateDto;
 import com.meng.robot_dt.education.controller.dto.UserCourseQueryDto;
 import com.meng.robot_dt.education.controller.vo.AnalyVo;
@@ -8,13 +9,18 @@ import com.meng.robot_dt.education.entity.UserCourse;
 import com.meng.robot_dt.education.repository.AnalyRepository;
 import com.meng.robot_dt.education.service.AnalyService;
 import com.meng.robot_dt.education.service.UserCourseService;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.PostConstruct;
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author taorun
@@ -65,12 +71,35 @@ public class AnalyServiceImpl implements AnalyService {
         } else return false;
     }
 
+    @SneakyThrows
     @Override
-    public AnalyVo calculate() {
+    public AnalyVo calculate(UserCourseQueryDto queryDto) {
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
         AnalyVo result = new AnalyVo();
-        List<UserCourse> userCourses = userCourseService.findAll(new UserCourseQueryDto());
+        List<UserCourse> userCourses = userCourseService.findAll(queryDto);
+        //实验人次
         result.setExpNum(userCourses.size());
-        userCourses.stream().map(UserCourse::getDuration);
-        return null;
+        int expTime = 0;
+        double scoreA = 0;
+        double scoreB = 0;
+        for (UserCourse userCourse : userCourses) {
+            if (userCourse.getScore() != null && !StringUtils.isEmpty(userCourse.getDuration())) {
+                if (userCourse.getScore() >= 90) {
+                    scoreA++;
+                } else {
+                    scoreB++;
+                }
+                expTime = expTime + sdf.parse(userCourse.getDuration()).getHours() * 60 + sdf.parse(userCourse.getDuration()).getMinutes() + 1;
+            }
+        }
+        //实验平均用时
+        result.setExpTime(String.valueOf(expTime / userCourses.size()));
+
+        //计算实验通过占比
+        Map<String, Double> map = Maps.newHashMap();
+        map.put("优秀", BigDecimal.valueOf((scoreA / userCourses.size()) * 100).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
+        map.put("达标", BigDecimal.valueOf((scoreB / userCourses.size()) * 100).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
+        result.setExpPassPro(map);
+        return result;
     }
 }
