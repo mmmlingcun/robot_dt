@@ -72,8 +72,9 @@ public class UserCourseController extends BaseController {
         userCourseService.excelExport(queryDto, response);
     }
 
-    @GetMapping("/test")
+    @ApiOperation(value = "对用户不满足三个小时课程的练习时间增加三个小时")
+    @GetMapping("/addUserCourseThreeHours")
     public void test() {
-        userCourseService.test();
+        userCourseService.addUserCourseThreeHours();
     }
 }

@@ -57,7 +57,7 @@ public class UserCourseExcelExportVo {
         this.id = "robot_XNFZ_" + userCourse.getId();
         if (userCourse.getPanUser() != null) {
             this.userStudentId = userCourse.getPanUser().getUserStudentId();
-            this.username = userCourse.getPanUser().getUsername();
+            this.username = userCourse.getPanUser().getNickname();
             this.schoolName = userCourse.getPanUser().getSchoolName();
         }
         if (userCourse.getCourse() != null) {

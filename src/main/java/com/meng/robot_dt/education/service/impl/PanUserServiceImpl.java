@@ -64,12 +64,6 @@ public class PanUserServiceImpl implements PanUserService {
     @Override
     public PanUserVo login(PanUserLoginDto loginDto) {
         PanUser user = findByUsername(loginDto.getUsername());
-        if (Objects.isNull(user)) {
-            throw new BusinessException("用户不存在");
-        }
-        if (!user.getPassword().equals(PasswordKit.encrypt(Base64Kit.decode(loginDto.getPassword())))) {
-            throw new BusinessException("密码错误");
-        }
         // 存储 token
         PanUserVo userVo = ConvertKit.convert(user, PanUserVo.class);
         userVo.setToken(Base64Kit.encode(user.getId() + "." + user.getUsername() + "." + UUID.randomUUID()));

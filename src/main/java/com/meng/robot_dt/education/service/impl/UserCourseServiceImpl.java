@@ -194,7 +194,7 @@ public class UserCourseServiceImpl implements UserCourseService {
 
     @SneakyThrows
     @Override
-    public void test() {
+    public void addUserCourseThreeHours() {
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
         List<UserCourse> userCourses = this.findAll(new UserCourseQueryDto());
         for (UserCourse userCourse : userCourses) {

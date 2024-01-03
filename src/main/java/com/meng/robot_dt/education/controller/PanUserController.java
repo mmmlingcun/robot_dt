@@ -2,13 +2,17 @@ package com.meng.robot_dt.education.controller;
 
 import com.meng.robot_dt.education.controller.dto.*;
 import com.meng.robot_dt.education.controller.vo.PanUserVo;
+import com.meng.robot_dt.education.entity.PanUser;
 import com.meng.robot_dt.education.service.PanUserService;
+import com.meng.robot_dt.education.util.kit.Base64Kit;
 import com.meng.robot_dt.education.util.kit.ConvertKit;
+import com.meng.robot_dt.education.util.kit.PasswordKit;
 import com.meng.robot_dt.education.util.kit.TokenKit;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.Objects;
 
 /**
  * @author taorun
@@ -44,6 +49,13 @@ public class PanUserController {
     @ApiOperation(value = "登录", notes = "注：密码要先转换 base64 格式，示例：admin YWRtaW4= ; tr MTExMTEx")
     @PostMapping("/login")
     public ResponseEntity loginMQ(@RequestBody @Valid PanUserLoginDto loginDto, HttpServletRequest request) {
+        PanUser user = panUserService.findByUsername(loginDto.getUsername());
+        if (Objects.isNull(user)) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("用户名或密码错误!");
+        }
+        if (!user.getPassword().equals(PasswordKit.encrypt(Base64Kit.decode(loginDto.getPassword())))) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("用户名或密码错误！");
+        }
         return ResponseEntity.ok(panUserService.login(loginDto));
     }
 

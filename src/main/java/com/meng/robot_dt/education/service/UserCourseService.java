@@ -27,5 +27,5 @@ public interface UserCourseService {
 
     void initUserCourseStep(UserCourseQueryDto queryDto);
 
-    void test();
+    void addUserCourseThreeHours();
 }
