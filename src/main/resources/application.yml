@@ -42,7 +42,7 @@ cors:
 
 i-lab:
   config:
-    # 正式环境url:http://www.ilab-x.com
-    url: http://39.105.173.29
-    app-id: 10000
-    secret: DDO7jw9TAZlLwRLRKSpBWXIlYZe9PKaD5Wc1S5ZQ0U8=
+    # 正式环境url:http://www.ilab-x.com  测试：http://39.105.173.29
+    url: http://www.ilab-x.com
+    app-id: 107896
+    secret: fHsqeqoxGrYgrTvqfiCt6VtTMydJAHz/OaUXPVtp37M=

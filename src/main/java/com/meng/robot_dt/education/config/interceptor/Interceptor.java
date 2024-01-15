@@ -17,6 +17,7 @@ import org.springframework.web.servlet.AsyncHandlerInterceptor;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 请求拦截器
@@ -51,7 +52,9 @@ public class Interceptor implements AsyncHandlerInterceptor {
                 return true;
             }
             String userId = Base64Kit.decode(token.substring(7)).split("\\.")[0];
-            if (token.substring(7).equals(stringRedisTemplate.opsForValue().get(RedisConstant.TOKEN + userId))) {
+            String tokenStr = stringRedisTemplate.opsForValue().get(RedisConstant.TOKEN + userId);
+            if (token.substring(7).equals(tokenStr)) {
+                stringRedisTemplate.opsForValue().set(com.meng.robot_dt.education.controller.dto.RedisConstant.TOKEN + userId, tokenStr, 30, TimeUnit.MINUTES);
                 return true;
             }
         } catch (Exception e) {

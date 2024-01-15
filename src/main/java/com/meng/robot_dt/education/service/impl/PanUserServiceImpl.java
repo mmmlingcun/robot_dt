@@ -63,11 +63,14 @@ public class PanUserServiceImpl implements PanUserService {
     @Transactional
     @Override
     public PanUserVo login(PanUserLoginDto loginDto) {
+        String keyStr = String.format(RedisConstant.LOGIN_ERROR_STR, loginDto.getUsername());
         PanUser user = findByUsername(loginDto.getUsername());
         // 存储 token
         PanUserVo userVo = ConvertKit.convert(user, PanUserVo.class);
         userVo.setToken(Base64Kit.encode(user.getId() + "." + user.getUsername() + "." + UUID.randomUUID()));
-        stringRedisTemplate.opsForValue().set(RedisConstant.TOKEN + user.getId(), userVo.getToken(), 3600 * 16, TimeUnit.SECONDS); // token有效时长：16小时
+        // token有效时长：30分钟
+        stringRedisTemplate.opsForValue().set(RedisConstant.TOKEN + user.getId(), userVo.getToken(), 30, TimeUnit.MINUTES);
+        stringRedisTemplate.delete(keyStr);
         return userVo;
     }
 
