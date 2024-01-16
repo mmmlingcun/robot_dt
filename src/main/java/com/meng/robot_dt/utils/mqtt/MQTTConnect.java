@@ -26,8 +26,6 @@ public class MQTTConnect {
      * @param mqttCallback 回调函数
      **/
     public void setMqttClient(String userName, String passWord, MqttCallback mqttCallback) throws MqttException {
-//        userName = "localjava";
-//        passWord = "mqttjavaadmin";
         MqttConnectOptions options = mqttConnectOptions(userName, passWord);
         if (mqttCallback == null) {
             mqttClient.setCallback(new Callback());
