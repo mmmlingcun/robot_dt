@@ -120,8 +120,11 @@ public class RequestKit {
             return true;
         }*/
         byte[] addr = IPAddressUtil.textToNumericFormatV4(ip);
-        if (addr != null) return internalIp(addr);
-        else return false;
+        if (addr != null) {
+            return internalIp(addr);
+        } else {
+            return false;
+        }
     }
 
     public static boolean internalIp(byte[] addr) {

@@ -68,7 +68,9 @@ public class AnalyServiceImpl implements AnalyService {
                 }
             });
             return true;
-        } else return false;
+        } else {
+            return false;
+        }
     }
 
     @SneakyThrows

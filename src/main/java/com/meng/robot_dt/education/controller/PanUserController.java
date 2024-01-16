@@ -146,7 +146,9 @@ public class PanUserController {
         if (Boolean.TRUE.equals(stringRedisTemplate.hasKey(keyStr))) {
             int errorNum = Integer.valueOf(stringRedisTemplate.opsForValue().get(keyStr));
             stringRedisTemplate.opsForValue().set(keyStr, String.valueOf(errorNum + 1), 10, TimeUnit.MINUTES);
-        } else stringRedisTemplate.opsForValue().set(keyStr, String.valueOf(1), 10, TimeUnit.MINUTES);
+        } else {
+            stringRedisTemplate.opsForValue().set(keyStr, String.valueOf(1), 10, TimeUnit.MINUTES);
+        }
     }
 
     private String checkPwdRegex(String pwd) {

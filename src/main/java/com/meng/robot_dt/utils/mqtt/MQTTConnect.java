@@ -1,10 +1,9 @@
 package com.meng.robot_dt.utils.mqtt;
 
 import lombok.extern.slf4j.Slf4j;
-import org.eclipse.paho.client.mqttv3.MqttClient;
-import org.springframework.stereotype.Component;
 import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+import org.springframework.stereotype.Component;
 
 /**
  * MQTT工具类操作
@@ -27,8 +26,8 @@ public class MQTTConnect {
      * @param mqttCallback 回调函数
      **/
     public void setMqttClient(String userName, String passWord, MqttCallback mqttCallback) throws MqttException {
-        userName = "localjava";
-        passWord = "mqttjavaadmin";
+//        userName = "localjava";
+//        passWord = "mqttjavaadmin";
         MqttConnectOptions options = mqttConnectOptions(userName, passWord);
         if (mqttCallback == null) {
             mqttClient.setCallback(new Callback());
@@ -128,10 +127,10 @@ public class MQTTConnect {
     /**
      * main函数自己测试用
      */
-    public static void main(String[] args) throws MqttException {
-        MQTTConnect mqttConnect = new MQTTConnect();
-        mqttConnect.setMqttClient("javaadmin", "mqttjavaadmin", new Callback());
-        mqttConnect.sub("joint_msg",0);
-        mqttConnect.pub("joint_msg", mqttConnect.msg_joint(1,0,0,0,0,0));
-    }
+//    public static void main(String[] args) throws MqttException {
+//        MQTTConnect mqttConnect = new MQTTConnect();
+//        mqttConnect.setMqttClient("javaadmin", "mqttjavaadmin", new Callback());
+//        mqttConnect.sub("joint_msg",0);
+//        mqttConnect.pub("joint_msg", mqttConnect.msg_joint(1,0,0,0,0,0));
+//    }
 }

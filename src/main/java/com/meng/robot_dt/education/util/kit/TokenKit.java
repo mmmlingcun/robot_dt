@@ -26,14 +26,18 @@ public class TokenKit {
         String token = getTokenFromHeader(request);
         if (Objects.nonNull(token)) {
             return getUserId(token);
-        } else throw new BusinessException("token 为空");
+        } else {
+            throw new BusinessException("token 为空");
+        }
     }
 
     public static String getUsername(HttpServletRequest request) {
         String token = getTokenFromHeader(request);
         if (Objects.nonNull(token)) {
             return getUsername(token);
-        } else throw new BusinessException("token 为空");
+        } else {
+            throw new BusinessException("token 为空");
+        }
     }
 
     public static String getTokenFromHeader(HttpServletRequest request) {

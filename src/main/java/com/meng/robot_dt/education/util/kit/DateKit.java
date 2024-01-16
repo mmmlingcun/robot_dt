@@ -33,7 +33,9 @@ public class DateKit extends DateUtils {
             N_DATE_FORMAT, N_DATE_TIME_FORMAT_X, N_DATE_TIME_MS_FORMAT_X};
 
     public static Date parse(String dateStr) {
-        if (StringKit.isBlank(dateStr)) return null;
+        if (StringKit.isBlank(dateStr)) {
+            return null;
+        }
         try {
             return parseDate(dateStr, parsePatterns);
         } catch (ParseException e) {

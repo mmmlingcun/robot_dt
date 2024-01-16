@@ -16,7 +16,9 @@ public class CollectionKit extends CollectionUtils {
     public static <T> List<T> mergeToList(Collection<T>... collections) {
         List<T> list = new ArrayList<>();
         for (Collection<T> collection : collections) {
-            if (Objects.isNull(collection)) continue;
+            if (Objects.isNull(collection)) {
+                continue;
+            }
             list.addAll(collection);
         }
         return list;
