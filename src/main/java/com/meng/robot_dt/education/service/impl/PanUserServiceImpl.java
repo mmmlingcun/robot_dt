@@ -57,6 +57,8 @@ public class PanUserServiceImpl implements PanUserService {
         addDto.setPassword(PasswordKit.encrypt(addDto.getPassword()));
         PanUser user = ConvertKit.convert(addDto, PanUser.class);
         user.setIsAdmin(false);
+        user.setType(addDto.getType());
+        user.setSchoolName(addDto.getSchoolName());
         return ConvertKit.convert(panUserRepository.save(user), PanUserVo.class);
     }
 
@@ -67,6 +69,8 @@ public class PanUserServiceImpl implements PanUserService {
         PanUser user = findByUsername(loginDto.getUsername());
         // 存储 token
         PanUserVo userVo = ConvertKit.convert(user, PanUserVo.class);
+        userVo.setType(user.getType());
+        userVo.setSchoolName(user.getSchoolName());
         userVo.setToken(Base64Kit.encode(user.getId() + "." + user.getUsername() + "." + UUID.randomUUID()));
         // token有效时长：30分钟
         stringRedisTemplate.opsForValue().set(RedisConstant.TOKEN + user.getId(), userVo.getToken(), 30, TimeUnit.MINUTES);
@@ -158,9 +162,9 @@ public class PanUserServiceImpl implements PanUserService {
     }
 
     @Override
-    public void excelImport(MultipartFile multipartFile) {
+    public void excelImport(PanUser.Type type, MultipartFile multipartFile) {
         try {
-            List<PanUser> users = excelHandler.importExcel(multipartFile, UserExcelVo.class, null, null).stream().map(UserExcelVo::getPanUser).collect(toList());
+            List<PanUser> users = excelHandler.importExcel(multipartFile, UserExcelVo.class, null, null).stream().map(x -> x.getPanUser(type)).collect(toList());
             panUserRepository.saveAll(users);
         } catch (Exception e) {
             e.printStackTrace();

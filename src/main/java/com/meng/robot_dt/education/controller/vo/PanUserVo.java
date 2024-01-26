@@ -1,5 +1,6 @@
 package com.meng.robot_dt.education.controller.vo;
 
+import com.meng.robot_dt.education.entity.PanUser;
 import lombok.Data;
 
 /**
@@ -16,7 +17,7 @@ public class PanUserVo {
     private String token;
     private Boolean isAdmin;
     private String schoolName;
-
+    private PanUser.Type type;
     private String userStudentId;
 
     private String userCode;

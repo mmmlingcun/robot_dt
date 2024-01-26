@@ -136,8 +136,8 @@ public class PanUserController {
      */
     @PostMapping("/excelImport/user")
     @ApiOperation(value = "excel导入用户")
-    public ResponseEntity<Object> excelImportUser(@RequestParam("file") MultipartFile multipartFile) {
-        panUserService.excelImport(multipartFile);
+    public ResponseEntity<Object> excelImportUser(@RequestParam PanUser.Type type, @RequestParam("file") MultipartFile multipartFile) {
+        panUserService.excelImport(type, multipartFile);
         return ResponseEntity.ok().build();
     }
 

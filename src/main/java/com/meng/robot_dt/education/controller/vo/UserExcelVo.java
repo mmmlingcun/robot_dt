@@ -33,11 +33,11 @@ public class UserExcelVo {
     @ExcelProperty("学校名称")
     private String schoolName;
 
-    public PanUser getPanUser() {
+    public PanUser getPanUser(PanUser.Type type) {
         PanUser user = new PanUser();
         user.setUsername(this.username);
-        user.setPassword(PasswordKit.encrypt("123456"));
-        user.setType(PanUser.Type.STUDENT);
+        user.setPassword(PasswordKit.encrypt("Stu123456."));
+        user.setType(type);
         user.setUserStudentId(this.userStudentId);
         user.setUserCode(this.userCode);
         user.setIsAdmin(false);

@@ -33,5 +33,5 @@ public interface PanUserService {
 
     boolean checkUnique(PanUserCheckDto checkDto);
 
-    void excelImport(MultipartFile multipartFile);
+    void excelImport(PanUser.Type type, MultipartFile multipartFile);
 }

@@ -1,5 +1,6 @@
 package com.meng.robot_dt.education.controller.dto;
 
+import com.meng.robot_dt.education.entity.PanUser;
 import lombok.Data;
 
 /**
@@ -13,4 +14,8 @@ public class UserCourseQueryDto {
     private String courseName;
 
     private String userName;
+
+    private PanUser.Type userType;
+
+    private String schoolName;
 }

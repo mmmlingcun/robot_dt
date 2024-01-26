@@ -139,25 +139,25 @@ public class UserCourseServiceImpl implements UserCourseService {
         List<Integer> step11Random = Lists.newArrayList(20, 21, 16, 17, 18, 19, 15);
         List<Integer> step10Random = Lists.newArrayList(7, 8, 9, 6, 5);
         List<Integer> step12Random = Lists.newArrayList(4, 5);
-        List<Integer> step13Random = Lists.newArrayList(5, 6, 4);
+        List<Integer> step13Random = Lists.newArrayList(5, 3, 4);
         List<Integer> step14Random = Lists.newArrayList(7, 8, 6);
         if (!CollectionUtils.isEmpty(userCourses)) {
             for (UserCourse userCourse : userCourses) {
                 List<UserCourseStep> userCourseSteps = Lists.newArrayList();
                 if (userCourse.getCreatTime() != null) {
-                    UserCourseStep step1 = getUserCourseStep(userCourse.getCreatTime(), "步骤1仿真实验平台系统认知", 10L, 3, 3);
-                    UserCourseStep step2 = getUserCourseStep(step1.getEndTime(), "步票2交互式3D仿真操作学习", 10L, 5, 5);
-                    UserCourseStep step3 = getUserCourseStep(step2.getEndTime(), "步粟3工业机器人运动学仿真调试", 8L, 6, step13Random.get(random.nextInt(step13Random.size())));
-                    UserCourseStep step4 = getUserCourseStep(step3.getEndTime(), "步4 学习模块化编程仿真事件配置", 10L, 6, step13Random.get(random.nextInt(step13Random.size())));
-                    UserCourseStep step5 = getUserCourseStep(step4.getEndTime(), "步察5工作站设备模型加载与场景搭建", 12L, 8, step14Random.get(random.nextInt(step14Random.size())));
-                    UserCourseStep step6 = getUserCourseStep(step5.getEndTime(), "步聚6~7 搬运工作站仿真事件编程配置", 16L, 8, step14Random.get(random.nextInt(step14Random.size())));
-                    UserCourseStep step7 = getUserCourseStep(step6.getEndTime(), "步聚8 搬运工作站仿真事件离线调试", 8L, 5, 5);
-                    UserCourseStep step8 = getUserCourseStep(step7.getEndTime(), "步票9~10 配置信号连接实现流程仿真", 16L, 10, step10Random.get(random.nextInt(step10Random.size())));
-                    UserCourseStep step9 = getUserCourseStep(step8.getEndTime(), "步骤11 仿真场景保存", 8L, 10, 10);
-                    UserCourseStep step10 = getUserCourseStep(step9.getEndTime(), "步聚12 装配生产线模型加载与场景搭建", 16L, 9, step10Random.get(random.nextInt(step10Random.size())));
-                    UserCourseStep step11 = getUserCourseStep(step10.getEndTime(), "步骤13~19 装配生产线仿真事件配置", 54L, 21, step11Random.get(random.nextInt(step11Random.size())));
-                    UserCourseStep step12 = getUserCourseStep(step11.getEndTime(), "步骤20装配生产线信号流程配置与仿真", 8L, 5, step12Random.get(random.nextInt(step12Random.size())));
-                    UserCourseStep step13 = getUserCourseStep(step12.getEndTime(), "步21 仿真场景保存", 8L, 5, step12Random.get(random.nextInt(step12Random.size())));
+                    UserCourseStep step1 = getUserCourseStep(userCourse.getCreatTime(), "步骤1:仿真实验平台系统认知", 10L, 3, 3);
+                    UserCourseStep step2 = getUserCourseStep(step1.getEndTime(), "步骤2:交互式3D仿真操作学习", 10L, 5, 5);
+                    UserCourseStep step3 = getUserCourseStep(step2.getEndTime(), "步骤3:工业机器人运动学仿真调试", 8L, 6, step13Random.get(random.nextInt(step13Random.size())));
+                    UserCourseStep step4 = getUserCourseStep(step3.getEndTime(), "步骤4:学习模块化编程仿真事件配置", 10L, 5, step13Random.get(random.nextInt(step13Random.size())));
+                    UserCourseStep step5 = getUserCourseStep(step4.getEndTime(), "步骤5:工作站设备模型加载与场景搭建", 12L, 8, step14Random.get(random.nextInt(step14Random.size())));
+                    UserCourseStep step6 = getUserCourseStep(step5.getEndTime(), "步骤6~7:搬运工作站仿真事件编程配置", 16L, 8, step14Random.get(random.nextInt(step14Random.size())));
+                    UserCourseStep step7 = getUserCourseStep(step6.getEndTime(), "步骤8:搬运工作站仿真事件离线调试", 8L, 5, 5);
+                    UserCourseStep step8 = getUserCourseStep(step7.getEndTime(), "步骤9~10:配置信号连接实现流程仿真", 16L, 10, step10Random.get(random.nextInt(step10Random.size())));
+                    UserCourseStep step9 = getUserCourseStep(step8.getEndTime(), "步骤11:仿真场景保存", 8L, 10, 10);
+                    UserCourseStep step10 = getUserCourseStep(step9.getEndTime(), "步骤12:装配生产线模型加载与场景搭建", 16L, 9, step10Random.get(random.nextInt(step10Random.size())));
+                    UserCourseStep step11 = getUserCourseStep(step10.getEndTime(), "步骤13~19:装配生产线仿真事件配置", 54L, 21, step11Random.get(random.nextInt(step11Random.size())));
+                    UserCourseStep step12 = getUserCourseStep(step11.getEndTime(), "步骤20:装配生产线信号流程配置与仿真", 8L, 5, step12Random.get(random.nextInt(step12Random.size())));
+                    UserCourseStep step13 = getUserCourseStep(step12.getEndTime(), "步骤21:仿真场景保存", 8L, 5, step12Random.get(random.nextInt(step12Random.size())));
                     userCourseSteps.add(step1);
                     userCourseSteps.add(step2);
                     userCourseSteps.add(step3);
@@ -218,6 +218,12 @@ public class UserCourseServiceImpl implements UserCourseService {
             }
             if (StringKit.isNotBlank(queryDto.getUserName())) {
                 predicates.add(builder.like(root.get("panUser").get("username"), "%".concat(queryDto.getUserName()).concat("%")));
+            }
+            if (StringKit.isNotBlank(queryDto.getSchoolName())) {
+                predicates.add(builder.like(root.get("panUser").get("schoolName"), "%".concat(queryDto.getSchoolName()).concat("%")));
+            }
+            if (queryDto.getUserType() != null) {
+                predicates.add(builder.equal(root.get("panUser").get("type"), queryDto.getUserType()));
             }
             return builder.and(predicates.toArray(new Predicate[0]));
         };
