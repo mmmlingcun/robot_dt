@@ -136,28 +136,75 @@ public class UserCourseServiceImpl implements UserCourseService {
     public void initUserCourseStep(UserCourseQueryDto queryDto) {
         List<UserCourse> userCourses = this.findAll(queryDto);
         Random random = new Random();
-        List<Integer> step11Random = Lists.newArrayList(20, 21, 16, 17, 18, 19, 15);
-        List<Integer> step10Random = Lists.newArrayList(7, 8, 9, 6, 5);
-        List<Integer> step12Random = Lists.newArrayList(4, 5);
-        List<Integer> step13Random = Lists.newArrayList(5, 3, 4);
-        List<Integer> step14Random = Lists.newArrayList(7, 8, 6);
+
+        List<Integer> step9Random = Lists.newArrayList(7, 8, 9);
+        List<Integer> step8Random = Lists.newArrayList(7, 8);
+        List<Integer> step6Random = Lists.newArrayList(4, 5, 6);
+        List<Integer> step5Random = Lists.newArrayList(4, 5);
+        List<Integer> step4Random = Lists.newArrayList(3, 4);
+        List<Integer> step3Random = Lists.newArrayList(2, 3);
+        List<Integer> step2Random = Lists.newArrayList(1, 2);
+
+        List<Long> step480time = Lists.newArrayList(450L, 452L, 453L, 454L, 460L, 470L, 465L, 463L, 462L, 461L,
+                441L, 442L, 443L, 444L, 445L, 446L, 447L, 448L, 449L);
+        List<Long> step600time = Lists.newArrayList(570L, 572L, 573L, 574L, 560L, 562L, 565L, 563L, 561L, 575L,
+                551L, 552L, 553L, 554L, 555L, 556L, 557L, 558L, 559L);
+        List<Long> step720time = Lists.newArrayList(690L, 691L, 692L, 693L, 681L, 683L, 688L, 689L, 678L, 676L,
+                670L, 671L, 672L, 673L, 674L, 675L, 676L, 677L, 678L, 679L);
+        List<Long> step960time = Lists.newArrayList(930L, 932L, 933L, 934L, 935L, 936L, 926L, 927L, 928L, 922L,
+                910L, 911L, 912L, 913L, 914L, 915L, 916L, 917L, 918L, 919L);
+        List<Long> step300time = Lists.newArrayList(270L, 271L, 272L, 273L, 274L, 275L, 276L, 268L, 267L, 266L,
+                250L, 251L, 252L, 253L, 254L, 255L, 256L, 257L, 258L, 259L);
+        List<Long> step360time = Lists.newArrayList(330L, 331L, 332L, 333L, 334L, 335L, 336L, 338L, 337L, 326L,
+                310L, 311L, 312L, 313L, 314L, 315L, 316L, 317L, 318L, 319L);
+
         if (!CollectionUtils.isEmpty(userCourses)) {
             for (UserCourse userCourse : userCourses) {
                 List<UserCourseStep> userCourseSteps = Lists.newArrayList();
                 if (userCourse.getCreatTime() != null) {
-                    UserCourseStep step1 = getUserCourseStep(userCourse.getCreatTime(), "步骤1:仿真实验平台系统认知", 10L, 3, 3);
-                    UserCourseStep step2 = getUserCourseStep(step1.getEndTime(), "步骤2:交互式3D仿真操作学习", 10L, 5, 5);
-                    UserCourseStep step3 = getUserCourseStep(step2.getEndTime(), "步骤3:工业机器人运动学仿真调试", 8L, 6, step13Random.get(random.nextInt(step13Random.size())));
-                    UserCourseStep step4 = getUserCourseStep(step3.getEndTime(), "步骤4:学习模块化编程仿真事件配置", 10L, 5, step13Random.get(random.nextInt(step13Random.size())));
-                    UserCourseStep step5 = getUserCourseStep(step4.getEndTime(), "步骤5:工作站设备模型加载与场景搭建", 12L, 8, step14Random.get(random.nextInt(step14Random.size())));
-                    UserCourseStep step6 = getUserCourseStep(step5.getEndTime(), "步骤6~7:搬运工作站仿真事件编程配置", 16L, 8, step14Random.get(random.nextInt(step14Random.size())));
-                    UserCourseStep step7 = getUserCourseStep(step6.getEndTime(), "步骤8:搬运工作站仿真事件离线调试", 8L, 5, 5);
-                    UserCourseStep step8 = getUserCourseStep(step7.getEndTime(), "步骤9~10:配置信号连接实现流程仿真", 16L, 10, step10Random.get(random.nextInt(step10Random.size())));
-                    UserCourseStep step9 = getUserCourseStep(step8.getEndTime(), "步骤11:仿真场景保存", 8L, 10, 10);
-                    UserCourseStep step10 = getUserCourseStep(step9.getEndTime(), "步骤12:装配生产线模型加载与场景搭建", 16L, 9, step10Random.get(random.nextInt(step10Random.size())));
-                    UserCourseStep step11 = getUserCourseStep(step10.getEndTime(), "步骤13~19:装配生产线仿真事件配置", 54L, 21, step11Random.get(random.nextInt(step11Random.size())));
-                    UserCourseStep step12 = getUserCourseStep(step11.getEndTime(), "步骤20:装配生产线信号流程配置与仿真", 8L, 5, step12Random.get(random.nextInt(step12Random.size())));
-                    UserCourseStep step13 = getUserCourseStep(step12.getEndTime(), "步骤21:仿真场景保存", 8L, 5, step12Random.get(random.nextInt(step12Random.size())));
+                    UserCourseStep step1 = getUserCourseStep(userCourse.getCreatTime(), "步骤1：实验认知和理论测试",
+                            step480time.get(random.nextInt(step480time.size())), 8, step8Random.get(random.nextInt(step8Random.size())));
+                    UserCourseStep step2 = getUserCourseStep(step1.getEndTime(), "步骤2：交互式操作3D设备模型",
+                            step480time.get(random.nextInt(step480time.size())), 5, step5Random.get(random.nextInt(step5Random.size())));
+                    UserCourseStep step3 = getUserCourseStep(step2.getEndTime(), "步骤3：工业机器人运动学仿真调试",
+                            step480time.get(random.nextInt(step480time.size())), 6, step6Random.get(random.nextInt(step6Random.size())));
+                    UserCourseStep step4 = getUserCourseStep(step3.getEndTime(), "步骤4：模块化编程仿真事件配置",
+                            step600time.get(random.nextInt(step600time.size())), 5, step5Random.get(random.nextInt(step5Random.size())));
+                    UserCourseStep step5 = getUserCourseStep(step4.getEndTime(), "步骤5：设计构建工业机器人搬运工作站场景",
+                            step720time.get(random.nextInt(step720time.size())), 8, step8Random.get(random.nextInt(step8Random.size())));
+                    UserCourseStep step6 = getUserCourseStep(step5.getEndTime(), "步骤6：设计配置搬运工作站生产设备仿真事件",
+                            step480time.get(random.nextInt(step480time.size())), 3, step3Random.get(random.nextInt(step3Random.size())));
+                    UserCourseStep step7 = getUserCourseStep(step6.getEndTime(), "步骤7：设计配置搬运工作站ABB机械臂仿真事件",
+                            step480time.get(random.nextInt(step480time.size())), 5, step5Random.get(random.nextInt(step5Random.size())));
+                    UserCourseStep step8 = getUserCourseStep(step7.getEndTime(), "步骤8：搬运工作站仿真事件离线调试",
+                            step480time.get(random.nextInt(step480time.size())), 5, step5Random.get(random.nextInt(step5Random.size())));
+                    UserCourseStep step9 = getUserCourseStep(step8.getEndTime(), "步骤9：设计配置搬运工作站工艺仿真信号流",
+                            step480time.get(random.nextInt(step480time.size())), 5, step5Random.get(random.nextInt(step5Random.size())));
+                    UserCourseStep step10 = getUserCourseStep(step9.getEndTime(), "步骤10：信号触发搬运工作站工艺流程仿真",
+                            step480time.get(random.nextInt(step480time.size())), 5, step5Random.get(random.nextInt(step5Random.size())));
+                    UserCourseStep step11 = getUserCourseStep(step10.getEndTime(), "步骤11：工业机器人搬运工作站理论知识考核",
+                            step480time.get(random.nextInt(step480time.size())), 5, step5Random.get(random.nextInt(step5Random.size())));
+                    UserCourseStep step12 = getUserCourseStep(step11.getEndTime(), "步骤12：设计构建工业机器人装配工作站场景",
+                            step960time.get(random.nextInt(step960time.size())), 9, step9Random.get(random.nextInt(step9Random.size())));
+                    UserCourseStep step13 = getUserCourseStep(step12.getEndTime(), "步骤13：设计配置装配工作站瓶体井式上料模块仿真事件",
+                            step300time.get(random.nextInt(step300time.size())), 2, step2Random.get(random.nextInt(step2Random.size())));
+                    UserCourseStep step14 = getUserCourseStep(step13.getEndTime(), "步骤14：设计配置装配工作站横向搬运模组模块仿真事件",
+                            step480time.get(random.nextInt(step480time.size())), 3, step3Random.get(random.nextInt(step3Random.size())));
+                    UserCourseStep step15 = getUserCourseStep(step14.getEndTime(), "步骤15：设计配置装配工作站伺服皮带运输模块仿真事件",
+                            step600time.get(random.nextInt(step600time.size())), 4, step4Random.get(random.nextInt(step4Random.size())));
+                    UserCourseStep step16 = getUserCourseStep(step15.getEndTime(), "步骤16：设计配置装配工作站钢珠落料模块仿真事件",
+                            step480time.get(random.nextInt(step480time.size())), 2, step2Random.get(random.nextInt(step2Random.size())));
+                    UserCourseStep step17 = getUserCourseStep(step16.getEndTime(), "步骤17：设计配置装配工作站瓶盖井式上料模块仿真事件",
+                            step300time.get(random.nextInt(step300time.size())), 2, step2Random.get(random.nextInt(step2Random.size())));
+                    UserCourseStep step18 = getUserCourseStep(step17.getEndTime(), "步骤18：设计配置装配工作站瓶盖装配模块仿真事件",
+                            step360time.get(random.nextInt(step360time.size())), 3, step3Random.get(random.nextInt(step3Random.size())));
+                    UserCourseStep step19 = getUserCourseStep(step18.getEndTime(), "步骤19：设计配置装配工作站FA机器人仿真事件",
+                            step720time.get(random.nextInt(step720time.size())), 5, step5Random.get(random.nextInt(step5Random.size())));
+                    UserCourseStep step20 = getUserCourseStep(step19.getEndTime(), "步骤20：设计配置装配工作站工艺仿真信号流",
+                            step480time.get(random.nextInt(step480time.size())), 5, step5Random.get(random.nextInt(step5Random.size())));
+                    UserCourseStep step21 = getUserCourseStep(step20.getEndTime(), "步骤21：工业机器人装配工作站理论知识考核",
+                            step480time.get(random.nextInt(step480time.size())), 5, step5Random.get(random.nextInt(step5Random.size())));
+
                     userCourseSteps.add(step1);
                     userCourseSteps.add(step2);
                     userCourseSteps.add(step3);
@@ -171,6 +218,14 @@ public class UserCourseServiceImpl implements UserCourseService {
                     userCourseSteps.add(step11);
                     userCourseSteps.add(step12);
                     userCourseSteps.add(step13);
+                    userCourseSteps.add(step14);
+                    userCourseSteps.add(step15);
+                    userCourseSteps.add(step16);
+                    userCourseSteps.add(step17);
+                    userCourseSteps.add(step18);
+                    userCourseSteps.add(step19);
+                    userCourseSteps.add(step20);
+                    userCourseSteps.add(step21);
                     List<UserCourseStep> steps = userCourseStepRepository.saveAll(userCourseSteps);
                     userCourse.setUserCourseSteps(steps);
                     userCourse.setScore(steps.stream().map(UserCourseStep::getScore).reduce(0, Integer::sum));
@@ -180,15 +235,15 @@ public class UserCourseServiceImpl implements UserCourseService {
         }
     }
 
-    private UserCourseStep getUserCourseStep(Date startTime, String name, Long minutes, Integer maxScore, Integer score) {
+    private UserCourseStep getUserCourseStep(Date startTime, String name, Long seconds, Integer maxScore, Integer score) {
         UserCourseStep step = new UserCourseStep();
         step.setStartTime(startTime);
         step.setName(name);
-        step.setEndTime(DateKit.plusMinutes(startTime, minutes));
+        step.setEndTime(DateKit.plusSeconds(startTime, seconds));
         step.setMaxScore(maxScore);
         step.setScore(score);
         step.setType(UserCourseStep.Type.PRACTICE);
-        step.setTimeUsed(String.valueOf(minutes * 60));
+        step.setTimeUsed(String.valueOf(seconds));
         return step;
     }
 
@@ -205,6 +260,24 @@ public class UserCourseServiceImpl implements UserCourseService {
                     userCourse.setDuration(sdf.format(DateKit.plusHours(date, 3L)));
                 }
             }
+        }
+        userCourseRepository.saveAll(userCourses);
+    }
+
+    @Override
+    public void test() {
+        List<UserCourse> userCourses = this.findAll(new UserCourseQueryDto());
+        for (UserCourse userCourse : userCourses) {
+            List<UserCourseStep> userCourseSteps = userCourse.getUserCourseSteps();
+            for (UserCourseStep userCourseStep : userCourseSteps) {
+                if (userCourseStep.getName().contains("步骤4:")) {
+                    if (userCourseStep.getScore() > 5) {
+                        userCourseStep.setScore(userCourseStep.getScore() - 1);
+                        userCourse.setScore(userCourse.getScore() - 1);
+                    }
+                }
+            }
+            userCourseStepRepository.saveAll(userCourseSteps);
         }
         userCourseRepository.saveAll(userCourses);
     }

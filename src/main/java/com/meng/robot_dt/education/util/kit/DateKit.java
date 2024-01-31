@@ -49,7 +49,7 @@ public class DateKit extends DateUtils {
     }
 
     /**
-     * 对时间做加法运算
+     * 对时间做加法运算（分钟）
      *
      * @return
      */
@@ -59,6 +59,20 @@ public class DateKit extends DateUtils {
         // 将Instant转换为LocalDateTime
         LocalDateTime localDateTime = instant.atZone(ZoneId.systemDefault()).toLocalDateTime();
         LocalDateTime futureTime = localDateTime.plusMinutes(minutes);
+        return Date.from(futureTime.atZone(ZoneId.systemDefault()).toInstant());
+    }
+
+    /**
+     * 对时间做加法运算（秒）
+     *
+     * @return
+     */
+    public static Date plusSeconds(Date date, Long seconds) {
+        // 将Date转换为Instant
+        Instant instant = date.toInstant();
+        // 将Instant转换为LocalDateTime
+        LocalDateTime localDateTime = instant.atZone(ZoneId.systemDefault()).toLocalDateTime();
+        LocalDateTime futureTime = localDateTime.plusSeconds(seconds);
         return Date.from(futureTime.atZone(ZoneId.systemDefault()).toInstant());
     }
 

@@ -61,6 +61,13 @@ public class UserCourseController extends BaseController {
         return ResponseEntity.ok().build();
     }
 
+    @PostMapping("/test")
+    @ApiOperation(value = "ceshi")
+    public ResponseEntity<Object> test111() {
+        userCourseService.test();
+        return ResponseEntity.ok().build();
+    }
+
     /**
      * excel导出-单个sheet
      *

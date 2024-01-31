@@ -28,4 +28,6 @@ public interface UserCourseService {
     void initUserCourseStep(UserCourseQueryDto queryDto);
 
     void addUserCourseThreeHours();
+
+    void test();
 }
